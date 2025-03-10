@@ -1,49 +1,3 @@
-.page {
-	--gray-rgb: 0, 0, 0;
-	--gray-alpha-200: rgba(var(--gray-rgb), 0.08);
-	--gray-alpha-100: rgba(var(--gray-rgb), 0.05);
-
-	--button-primary-hover: #383838;
-	--button-secondary-hover: #f2f2f2;
-
-	display: grid;
-	grid-template-rows: 20px 1fr 20px;
-	align-items: center;
-	justify-items: center;
-	min-height: 100svh;
-	padding: 80px;
-	gap: 64px;
-	font-family: var(--font-geist-sans);
-}
-
-@media (prefers-color-scheme: dark) {
-	.page {
-		--gray-rgb: 255, 255, 255;
-		--gray-alpha-200: rgba(var(--gray-rgb), 0.145);
-		--gray-alpha-100: rgba(var(--gray-rgb), 0.06);
-
-		--button-primary-hover: #ccc;
-		--button-secondary-hover: #1a1a1a;
-	}
-}
-.icon {
-	width: 150px;
-	height: 150px;
-	// stroke-linecap: round;
-	// stroke-linejoin: round;
-}
-.svg-path {
-	stroke-dasharray: 1000; /* Задает длину пунктирного контура */
-	stroke-dashoffset: 1000; /* Полностью скрывает путь */
-	animation: draw 2s linear forwards;
-}
-
-@keyframes draw {
-	to {
-		stroke-dashoffset: 0;
-	}
-}
-
 .info {
 	display: flex;
 	flex-direction: column;
@@ -74,6 +28,14 @@
 	flex-direction: column;
 	gap: 50px;
 	height: 100vh;
+
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 999;
+	width: 100%;
+	height: 100%;
+	background-color: #000000;
 }
 
 .circle-container {

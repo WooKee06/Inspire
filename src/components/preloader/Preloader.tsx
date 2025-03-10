@@ -3,20 +3,30 @@
 import preloaderStore from '@/store/preloaderStore'
 import { motion } from 'framer-motion'
 import { observer } from 'mobx-react-lite'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import style from '../../styles/preloader.module.scss'
 
 const Preloader = observer(() => {
 	const text = 'Dare to Dream, Dare to Inspire'
 	const { isLoading, isInitialLoad, setIsLoading, completeInitialLoad } =
 		preloaderStore
+	const [hidePreloader, setHidePreloader] = useState(true)
 
 	useEffect(() => {
 		if (isInitialLoad) {
 			const timer = setTimeout(() => {
 				setIsLoading(false)
 				completeInitialLoad()
+			}, 3600)
+
+			const timerHidePreloader = setTimeout(() => {
+				setHidePreloader(false)
 			}, 3000)
+
+			return () => {
+				clearTimeout(timer)
+				clearTimeout(timerHidePreloader)
+			}
 
 			return () => {
 				clearTimeout(timer)
@@ -27,7 +37,12 @@ const Preloader = observer(() => {
 	if (!isInitialLoad || !isLoading) return null
 
 	return (
-		<div className={style.container}>
+		<motion.div
+			initial={{ opacity: 1 }}
+			animate={{ opacity: hidePreloader ? 1 : 0 }}
+			transition={{ duration: 0.2 }}
+			className={style.container}
+		>
 			<motion.div
 				initial={{ y: 100, scale: 0.5, opacity: 0 }}
 				animate={{ y: 0, scale: 1, opacity: 1 }}
@@ -120,7 +135,7 @@ const Preloader = observer(() => {
 					))}
 				</motion.h1>
 			</div>
-		</div>
+		</motion.div>
 	)
 })
 

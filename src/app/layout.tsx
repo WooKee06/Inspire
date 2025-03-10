@@ -12,14 +12,9 @@ const RootLayout = observer(({ children }: { children: React.ReactNode }) => {
 	return (
 		<html lang='en'>
 			<body>
-				{isLoading ? (
-					<Preloader />
-				) : (
-					<>
-						<Header />
-						<main>{children}</main>
-					</>
-				)}
+				<Preloader />
+				<Header />
+				<main>{children}</main>
 			</body>
 		</html>
 	)

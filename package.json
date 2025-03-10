@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "classnames": "^2.5.1",
     "framer-motion": "^12.4.10",
     "mobx": "^6.13.6",
     "mobx-react-lite": "^4.1.0",
