@@ -1,0 +1,47 @@
+.collection {
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	position: relative;
+
+	&__img {
+		width: 55%;
+		height: 511px;
+		background: rgba(164, 211, 255, 0.13);
+		border-radius: 30px;
+	}
+
+	&__info {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 10px;
+		width: 50%;
+		position: absolute;
+		left: 50px;
+
+		h2 {
+			font-family: 'Cinzel Decorative';
+			font-style: normal;
+			font-weight: 700;
+			font-size: 68px;
+			line-height: 92px;
+			color: #ffffff;
+		}
+
+		p {
+			font-family: 'Raleway';
+			font-style: normal;
+			font-weight: 300;
+			font-size: 16px;
+			line-height: 23px;
+			width: 90%;
+			margin-left: auto;
+			color: #ffffff;
+		}
+
+		button {
+			margin-left: auto;
+		}
+	}
+}

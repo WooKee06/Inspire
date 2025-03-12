@@ -3,43 +3,18 @@
 	top: 0;
 	width: 100%;
 	z-index: 20;
-	background: rgba(0, 0, 0, 0.15);
-	backdrop-filter: blur(8.2px);
+	transition: all 0.1s ease-in-out;
+	width: 100%;
 
 	.container {
-		padding: 20px 80px;
+		padding: 15px 30px;
+		transition: all 0.3s ease-in-out;
+
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
-
-		.logo {
-			display: flex;
-			align-items: center;
-			gap: 10px;
-
-			> div {
-				display: flex;
-				flex-direction: column;
-
-				h1 {
-					font-family: 'Cinzel Decorative';
-					font-weight: 700;
-					font-size: 26px;
-					line-height: 30px;
-					color: #ffffff;
-				}
-
-				span {
-					font-family: 'Cinzel';
-					font-style: normal;
-					font-weight: 400;
-					font-size: 9px;
-					line-height: 12px;
-					text-transform: lowercase;
-					color: rgba(255, 255, 255, 0.56);
-				}
-			}
-		}
+		width: 100%;
+		margin: 0 auto;
 
 		.nav {
 			ul {
@@ -91,6 +66,18 @@
 					}
 				}
 			}
+		}
+	}
+
+	&.scrolled {
+		width: 100%;
+		top: 10px;
+
+		.container {
+			width: 90%;
+			border-radius: 20px;
+			background: rgba(0, 0, 0, 0.15);
+			backdrop-filter: blur(8.2px);
 		}
 	}
 }

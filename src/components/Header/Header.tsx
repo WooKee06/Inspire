@@ -1,28 +1,29 @@
-import Link from 'next/link'
-import './Header.scss'
-export default function Header() {
-	return (
-		<header className='header'>
-			<div className='container'>
-				<Link href='/' className='logo'>
-					<svg
-						width='36'
-						height='34'
-						viewBox='0 0 44 42'
-						fill='none'
-						xmlns='http://www.w3.org/2000/svg'
-					>
-						<path
-							d='M20.2277 0.425757C23.1204 1.44644 14.6429 6.45978 19.9413 9.82203C22.9199 11.7133 29.4212 3.15758 32.6862 1.2363C35.4642 -0.384784 40.3331 -0.715004 42.7961 4.92876C45.9179 12.0735 43.1971 30.6559 31.9415 38.1309C20.5714 45.6359 6.25137 41.8234 1.29664 30.1456C-4.46001 16.5465 10.2323 -3.14663 20.2277 0.425757ZM23.6932 19.7887C25.7839 24.712 37.154 18.2877 34.5478 11.3831C32.858 6.91009 21.717 15.1356 23.6932 19.7887Z'
-							fill='white'
-						/>
-					</svg>
+'use client'
 
-					<div>
-						<h1>Inspire</h1>
-						<span>Your art encyclopedia</span>
-					</div>
-				</Link>
+import { motion, useScroll } from 'framer-motion'
+import Link from 'next/link'
+import { useEffect, useState } from 'react'
+import Logo from '../ui/Logo/Logo'
+import './Header.scss'
+
+export default function Header() {
+	const { scrollY } = useScroll()
+	const [scrolled, setScrolled] = useState(false)
+
+	// Отслеживаем скролл и добавляем/удаляем класс
+	useEffect(() => {
+		const updateScroll = () => {
+			setScrolled(scrollY.get() > 50)
+		}
+
+		const unsubscribe = scrollY.on('change', updateScroll)
+		return () => unsubscribe()
+	}, [scrollY])
+
+	return (
+		<motion.header className={`header ${scrolled ? 'scrolled' : ''}`}>
+			<div className='container'>
+				<Logo />
 				<nav className='nav'>
 					<ul className='nav-list'>
 						<li className='nav-item'>
@@ -65,6 +66,6 @@ export default function Header() {
 					</div>
 				</div>
 			</div>
-		</header>
+		</motion.header>
 	)
 }

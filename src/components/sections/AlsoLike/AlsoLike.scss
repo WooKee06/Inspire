@@ -1,0 +1,66 @@
+.also-like {
+	margin: 200px 0;
+	position: relative;
+
+	&__info {
+		display: flex;
+		flex-direction: column;
+		gap: 20px;
+		width: 50%;
+		position: absolute;
+		left: 10%;
+		top: -100px;
+		z-index: 6;
+
+		h2 {
+			font-family: 'Cinzel Decorative';
+			font-style: normal;
+			font-weight: 700;
+			font-size: 68px;
+			line-height: 92px;
+			color: #ffffff;
+		}
+
+		p {
+			font-family: 'Raleway';
+			font-style: normal;
+			font-weight: 300;
+			font-size: 16px;
+			line-height: 23px;
+		}
+	}
+
+	&__swiper {
+		width: 50%;
+		margin-left: auto;
+		position: relative;
+
+		.swiper-slide {
+			width: 500px;
+			aspect-ratio: 1/1.1;
+			background: linear-gradient(
+					180deg,
+					rgba(0, 0, 0, 0) 0%,
+					rgba(0, 0, 0, 0.4) 100%
+				),
+				rgba(164, 211, 255, 0.13);
+			border-radius: 30px;
+		}
+
+		&::before {
+			content: '';
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 70px; /* Ширина размытой полоски */
+			height: 100%;
+			background: linear-gradient(
+				to right,
+				rgb(0, 0, 0),
+				rgba(0, 0, 0, 0)
+			); /* Градиент для размытия */
+			z-index: 4; /* Чтобы полоска была поверх слайдов */
+			pointer-events: none; /* Чтобы полоска не блокировала взаимодействие */
+		}
+	}
+}
