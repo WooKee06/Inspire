@@ -27,13 +27,16 @@ export default function Header() {
 				<nav className='nav'>
 					<ul className='nav-list'>
 						<li className='nav-item'>
-							<Link href='/'>Art</Link>
-						</li>
-						<li className='nav-item'>
 							<Link href='/'>Home</Link>
 						</li>
 						<li className='nav-item'>
-							<Link href='/'>Museums</Link>
+							<Link href='/'>Art</Link>
+						</li>
+						<li className='nav-item'>
+							<Link href='/Movements'>Movements</Link>
+						</li>
+						<li className='nav-item'>
+							<Link href='/museums'>Museums</Link>
 						</li>
 						<li className='nav-item'>
 							<Link href='/'>About Us</Link>

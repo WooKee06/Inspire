@@ -1,0 +1,229 @@
+.museum-list {
+	display: grid;
+	grid-template-columns: 25% 75%;
+	gap: 30px;
+
+	&__best {
+		background: rgba(11, 15, 18, 0.5);
+		border: 1px solid rgba(255, 255, 255, 0.15);
+		border-radius: 16px;
+		padding: 30px;
+		width: 100%;
+
+		display: flex;
+		flex-direction: column;
+		gap: 15px;
+		max-height: 600px;
+		position: sticky;
+		top: 100px;
+
+		> span {
+			font-family: 'Cinzel Decorative';
+			font-style: normal;
+			font-weight: 700;
+			font-size: 30px;
+			line-height: 42px;
+			display: flex;
+			align-items: center;
+			color: #ffffff;
+		}
+
+		ul {
+			display: flex;
+			flex-direction: column;
+			gap: 10px;
+			overflow-y: scroll;
+			padding-right: 10px;
+			&::-webkit-scrollbar {
+				width: 9px;
+			}
+			&::-webkit-scrollbar-track {
+				background-color: #13191f4b;
+			}
+
+			&::-webkit-scrollbar-thumb {
+				background-color: #13191f;
+				border-radius: 10px;
+			}
+
+			> li {
+				width: 100%;
+				background: rgba(164, 211, 255, 0.09);
+				border-radius: 7px;
+				padding: 12px 20px;
+				font-family: 'Raleway';
+				font-style: normal;
+				font-weight: 500;
+				font-size: 16px;
+				line-height: 23px;
+				color: #ffffff;
+			}
+		}
+	}
+
+	.swiper-slide {
+		height: 230px;
+		background-color: red;
+		border-radius: 10px;
+		width: 320px;
+	}
+
+	&__museums {
+		display: flex;
+		flex-direction: column;
+		gap: 20px;
+
+		> span {
+			font-family: 'Cinzel Decorative';
+			font-style: normal;
+			font-weight: 700;
+			font-size: 50px;
+			line-height: 92px;
+			color: #ffffff;
+		}
+
+		> ul {
+			list-style-type: none;
+			display: flex;
+			flex-direction: column;
+			gap: 100px;
+
+			.museum-item {
+				display: flex;
+				flex-direction: column;
+				gap: 45px;
+
+				> div {
+					&:nth-child(1) {
+						position: relative;
+						z-index: 3;
+						display: grid;
+						gap: 20px;
+						grid-template-columns: 50% 50%;
+					}
+				}
+
+				&__info {
+					display: flex;
+					flex-direction: column;
+					gap: 20px;
+					direction: ltr;
+					> div {
+						display: flex;
+						align-items: center;
+						gap: 5px;
+						> span {
+							font-family: 'Cinzel Decorative';
+							font-style: normal;
+							font-weight: 700;
+							font-size: 128px;
+							line-height: 90px;
+							color: #ffffff;
+						}
+
+						> div {
+							display: flex;
+							flex-direction: column;
+							gap: 0;
+							align-items: flex-start;
+							small {
+								font-family: 'Shippori Mincho';
+								font-style: normal;
+								font-weight: 500;
+								font-size: 15px;
+								line-height: 24px;
+								color: #cbcbcb;
+							}
+
+							h2 {
+								font-family: 'Cinzel Decorative';
+								font-style: normal;
+								font-weight: 700;
+								font-size: 40px;
+								line-height: 54px;
+								display: flex;
+								align-items: center;
+								color: #ffffff;
+							}
+						}
+
+						button {
+							background: #f42055;
+							border-radius: 50px;
+							padding: 15px 80px;
+							font-weight: 500;
+							font-family: 'Raleway';
+							font-size: 16px;
+							line-height: 20px;
+							color: #ffffff;
+
+							&:nth-child(2) {
+								background: rgba(164, 211, 255, 0.13);
+								border-radius: 22.5px;
+								padding: 10px;
+							}
+						}
+
+						&.btns {
+							gap: 15px;
+							margin-top: auto;
+							button {
+								display: flex;
+								align-items: center;
+								justify-content: center;
+							}
+						}
+					}
+
+					p {
+						font-family: 'Shippori Mincho';
+						font-style: normal;
+						font-weight: 400;
+						font-size: 15px;
+						line-height: 22px;
+						color: #ffffff;
+					}
+				}
+
+				&__img {
+					background-image: url(https://static-secure.guim.co.uk/sys-images/Guardian/About/General/2014/9/3/1409767843010/Great-Gallery-at-the-Wall-014.jpg);
+					background-size: cover;
+					background-repeat: no-repeat;
+					border-radius: 10px;
+					width: 100%;
+					aspect-ratio: 2/1.4;
+				}
+
+				&__swiper {
+					position: relative;
+					z-index: 2;
+					&::after,
+					&::before {
+						content: '';
+						position: absolute;
+						right: 0;
+						top: 0;
+						height: 100%;
+						width: 0px;
+
+						z-index: 2;
+						box-shadow: 0 0 90px 80px #000000;
+					}
+				}
+
+				&:nth-child(2n) {
+					> div {
+						&:nth-child(1) {
+							position: relative;
+							z-index: 3;
+							display: grid;
+							gap: 20px;
+							grid-template-columns: 50% 50%;
+							direction: rtl;
+						}
+					}
+				}
+			}
+		}
+	}
+}

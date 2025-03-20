@@ -1,0 +1,79 @@
+.MovementHero {
+	height: 100vh;
+	width: 100%;
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: relative;
+
+	&__img {
+		background-image: url('/MovementHero.svg');
+		background-size: cover;
+		background-repeat: no-repeat;
+		background-position: center;
+		position: absolute;
+		z-index: 1;
+		width: 70%;
+		aspect-ratio: 2.1/1.2;
+	}
+
+	&__info {
+		position: relative;
+		z-index: 2;
+
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		width: 60%;
+		gap: 15px;
+
+		span {
+			font-family: 'Raleway';
+			font-style: normal;
+			font-weight: 400;
+			font-size: 16px;
+			line-height: 23px;
+			text-align: center;
+			color: #cbcbcb;
+		}
+		h1 {
+			font-family: 'Cinzel Decorative';
+			font-style: normal;
+			font-weight: 700;
+			font-size: 55px;
+			line-height: 65px;
+			text-align: center;
+			color: #ffffff;
+			width: 90%;
+		}
+		p {
+			font-family: 'Shippori Mincho';
+			font-style: normal;
+			font-weight: 400;
+			font-size: 16px;
+			line-height: 23px;
+			text-align: center;
+			color: #ffffff;
+		}
+
+		> div {
+			display: flex;
+			align-items: center;
+			gap: 15px;
+			button {
+				font-family: 'Raleway';
+				font-style: normal;
+				font-weight: 600;
+				font-size: 15px;
+				line-height: 18px;
+				text-align: center;
+				padding: 17px 20px;
+				color: #ffffff;
+				background: rgba(0, 0, 0, 0.4);
+				backdrop-filter: blur(21.35px);
+				border-radius: 39px;
+			}
+		}
+	}
+}
