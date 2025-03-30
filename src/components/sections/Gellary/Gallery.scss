@@ -1,0 +1,29 @@
+.Gallery {
+	width: 90%;
+	margin: 50px auto;
+
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+
+	> div {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+		gap: 20px;
+		width: 100%;
+
+		> ul {
+			display: flex;
+			flex-direction: column;
+			gap: 20px;
+			list-style-type: none;
+
+			li {
+				width: 100%;
+				height: 300px;
+				background-color: red;
+				border-radius: 10px;
+			}
+		}
+	}
+}

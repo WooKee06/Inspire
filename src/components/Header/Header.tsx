@@ -29,9 +29,7 @@ export default function Header() {
 						<li className='nav-item'>
 							<Link href='/'>Home</Link>
 						</li>
-						<li className='nav-item'>
-							<Link href='/'>Art</Link>
-						</li>
+
 						<li className='nav-item'>
 							<Link href='/Movements'>Movements</Link>
 						</li>
@@ -39,7 +37,7 @@ export default function Header() {
 							<Link href='/museums'>Museums</Link>
 						</li>
 						<li className='nav-item'>
-							<Link href='/'>About Us</Link>
+							<Link href='/About'>About Us</Link>
 						</li>
 					</ul>
 				</nav>

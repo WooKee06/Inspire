@@ -1,0 +1,70 @@
+.SeeAlsoSwiper {
+	width: 90%;
+	margin: 0 auto;
+
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 15px;
+
+	&__title {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		width: 100%;
+
+		> div {
+			display: flex;
+			align-items: center;
+			gap: 10px;
+
+			> button {
+				width: 75px;
+				height: 45px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				background: rgba(75, 75, 75, 0.54);
+				border-radius: 40px;
+				transition: all 0.3s ease-in-out;
+			}
+		}
+
+		span {
+			font-family: 'Cormorant SC';
+			font-weight: 700;
+			font-size: 30px;
+			line-height: 47px;
+			text-align: center;
+			color: #ffffff;
+		}
+	}
+
+	.swiper-button-disabled {
+		opacity: 0.3;
+	}
+
+	.mySwiper {
+		width: 100%;
+		position: relative;
+
+		&::before {
+			content: '';
+			position: absolute;
+			top: 0;
+			right: 0;
+			width: 70px;
+			height: 100%;
+			background: linear-gradient(to left, rgb(0, 0, 0), rgba(0, 0, 0, 0));
+			z-index: 4;
+			pointer-events: none;
+		}
+
+		.swiper-slide {
+			width: 300px;
+			height: 200px;
+			border-radius: 10px;
+			background-color: red;
+		}
+	}
+}

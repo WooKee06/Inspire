@@ -7,11 +7,11 @@ import { observer } from 'mobx-react-lite'
 import '../styles/global.scss'
 
 const RootLayout = observer(({ children }: { children: React.ReactNode }) => {
-	const { isLoading } = preloaderStore
+	const { bodyScrollHidden } = preloaderStore
 
 	return (
 		<html lang='en'>
-			<body>
+			<body className={`${bodyScrollHidden ? 'hidden' : ''}`}>
 				<Preloader />
 				<Header />
 				<main>{children}</main>

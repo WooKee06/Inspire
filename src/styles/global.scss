@@ -15,12 +15,33 @@ body {
 	font-family: 'Cormorant SC', serif;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
+
+	&.hidden {
+		overflow: hidden;
+	}
+
+	&::-webkit-scrollbar {
+		width: 9px;
+	}
+	&::-webkit-scrollbar-track {
+		background-color: #13191f4b;
+	}
+	&::-webkit-scrollbar-thumb {
+		background-color: rgba(87, 87, 87, 0.27);
+		border-radius: 10px;
+	}
 }
 
 * {
 	box-sizing: border-box;
 	padding: 0;
 	margin: 0;
+}
+.Gallery span {
+	font-family: 'Cormorant SC';
+	font-weight: 700;
+	font-size: 30px;
+	color: #ffffff;
 }
 
 a {

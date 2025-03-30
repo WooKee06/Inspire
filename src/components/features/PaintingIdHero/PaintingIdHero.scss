@@ -1,0 +1,103 @@
+.PaintingIdHero {
+	height: 100vh;
+	width: 100%;
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	.PaintingIdHero-wrapper {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 30px;
+		width: 65%;
+		align-items: center;
+	}
+
+	&__info {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 10px;
+		width: 100%;
+
+		.art-btn {
+			display: flex;
+			align-items: center;
+			gap: 15px;
+
+			.download {
+				padding: 11px;
+				background: rgba(255, 255, 255, 0.11);
+				backdrop-filter: blur(17.5px);
+				border-radius: 36px;
+				width: 45px;
+				height: 45px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+			}
+			.like {
+				background: #f42055;
+				backdrop-filter: blur(17.5px);
+				border-radius: 36px;
+				font-family: 'Raleway';
+				font-style: normal;
+				font-weight: 600;
+				font-size: 16px;
+				color: #ffffff;
+				padding: 12px 50px;
+			}
+		}
+		small {
+			font-family: 'Raleway';
+			font-style: normal;
+			font-weight: 400;
+			font-size: 14px;
+			line-height: 20px;
+			text-align: center;
+			color: #cbcbcb;
+		}
+
+		h1 {
+			font-family: 'Cinzel Decorative';
+			font-style: normal;
+			font-weight: 700;
+			font-size: 50px;
+			line-height: 74px;
+			text-align: center;
+			color: #ffffff;
+		}
+
+		p {
+			font-family: 'Shippori Mincho';
+			font-style: normal;
+			font-weight: 400;
+			font-size: 18px;
+			line-height: 29px;
+			color: #ffffff;
+		}
+
+		.artist-info {
+			display: flex;
+			flex-direction: column;
+			gap: 10px;
+
+			span {
+				font-family: 'Cormorant SC';
+				font-style: normal;
+				font-weight: 600;
+				font-size: 30px;
+				line-height: 36px;
+				color: #ffffff;
+			}
+		}
+	}
+
+	&__img {
+		width: 100%;
+		height: 500px;
+		border-radius: 10px;
+		background-color: #171c21;
+	}
+}

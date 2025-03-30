@@ -1,0 +1,161 @@
+.MovementList {
+	width: 90%;
+	margin: 0 auto;
+
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+	margin-bottom: 200px;
+
+	> h2 {
+		font-family: 'Cinzel Decorative';
+		font-style: normal;
+		font-weight: 700;
+		font-size: 50px;
+		line-height: 92px;
+		color: #ffffff;
+	}
+
+	.swiper-button-disabled {
+		opacity: 0.3;
+	}
+
+	> div {
+		display: flex;
+		flex-direction: column;
+		gap: 80px;
+
+		a {
+			&:nth-child(2n) {
+				margin-left: 0;
+				direction: rtl;
+
+				.btn {
+					left: 0;
+					right: auto;
+					direction: ltr;
+				}
+
+				.Movement-item__info {
+					direction: ltr;
+				}
+			}
+		}
+
+		.Movement-item {
+			display: grid;
+			grid-template-columns: 40% 60%;
+			align-items: center;
+			gap: 30px;
+			width: 95%;
+			margin-left: auto;
+
+			&__info {
+				display: flex;
+				flex-direction: column;
+				gap: 10px;
+
+				h3 {
+					font-family: 'Cormorant SC';
+					font-style: normal;
+					font-weight: 700;
+					font-size: 35px;
+					line-height: 58px;
+					color: #ffffff;
+
+					display: flex;
+					align-items: center;
+					gap: 10px;
+
+					> hr {
+						height: 1px;
+						width: 80px;
+						border: none;
+						background-color: #fff;
+					}
+				}
+
+				small {
+					font-family: 'Raleway';
+					font-style: normal;
+					font-weight: 400;
+					font-size: 16px;
+					line-height: 20px;
+					color: rgba(255, 255, 255, 0.58);
+				}
+				p {
+					font-family: 'Shippori Mincho';
+					font-style: normal;
+					font-weight: 400;
+					font-size: 18px;
+					line-height: 28px;
+					color: #ffffff;
+				}
+
+				button {
+					padding: 12px 30px;
+					font-family: 'Raleway';
+					font-style: normal;
+					font-weight: 400;
+					font-size: 16px;
+					line-height: 20px;
+					color: rgba(255, 255, 255, 0.63);
+					background: rgba(255, 255, 255, 0.1);
+					border: 1px solid rgba(255, 255, 255, 0.05);
+					border-radius: 28px;
+					width: max-content;
+				}
+			}
+
+			&__swiper {
+				overflow: hidden;
+				position: relative;
+				.btn {
+					display: flex;
+					align-items: center;
+					gap: 10px;
+					position: absolute;
+					top: 0;
+					right: 0;
+					z-index: 2;
+
+					> button {
+						width: 65px;
+						height: 35px;
+						display: flex;
+						align-items: center;
+						justify-content: center;
+						background: rgba(75, 75, 75, 0.54);
+						border-radius: 40px;
+						transition: all 0.3s ease-in-out;
+					}
+				}
+				.swiper-wrapper {
+					padding: 20px 25px;
+				}
+				.swiper-slide {
+					height: 450px;
+					background-color: red;
+					border-radius: 10px;
+					transition: all 0.3s ease-in-out;
+					transform: scale(0.9);
+					opacity: 0;
+
+					&.swiper-slide-prev {
+						opacity: 0;
+						transform: scale(0);
+					}
+
+					&.swiper-slide-next {
+						opacity: 0.3;
+						transform: scale(0.9);
+					}
+					&.swiper-slide-active {
+						transform: scale(1.1);
+						opacity: 1;
+					}
+				}
+			}
+		}
+	}
+}

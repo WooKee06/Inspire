@@ -8,8 +8,13 @@ import style from '../../styles/preloader.module.scss'
 
 const Preloader = observer(() => {
 	const text = 'Dare to Dream, Dare to Inspire'
-	const { isLoading, isInitialLoad, setIsLoading, completeInitialLoad } =
-		preloaderStore
+	const {
+		isLoading,
+		isInitialLoad,
+		setIsLoading,
+		completeInitialLoad,
+		setBodyScrollHidden,
+	} = preloaderStore
 	const [hidePreloader, setHidePreloader] = useState(true)
 
 	useEffect(() => {
@@ -21,6 +26,7 @@ const Preloader = observer(() => {
 
 			const timerHidePreloader = setTimeout(() => {
 				setHidePreloader(false)
+				setBodyScrollHidden(false)
 			}, 3000)
 
 			return () => {
