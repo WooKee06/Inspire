@@ -3,11 +3,25 @@
 	grid-template-columns: 40% 60%;
 	gap: 30px;
 
+	@media (max-width: 1023px) {
+		display: flex;
+		flex-direction: column-reverse;
+		gap: 20px;
+	}
+
 	&__main-img {
 		width: 100%;
 		aspect-ratio: 1/1;
 		background: rgba(164, 211, 255, 0.13);
 		border-radius: 30px;
+
+		@media (max-width: 1023px) {
+			aspect-ratio: 1/0.5;
+		}
+
+		@media (max-width: 560px) {
+			aspect-ratio: 1/0.9;
+		}
 	}
 
 	&__info {
@@ -28,6 +42,15 @@
 				font-size: 68px;
 				line-height: 92px;
 				color: #ffffff;
+
+				@media (max-width: 560px) {
+					font-size: 50px;
+				}
+
+				@media (max-width: 480px) {
+					font-size: 25px;
+					line-height: 42px;
+				}
 			}
 
 			button {
@@ -47,11 +70,18 @@
 			&:nth-child(1) {
 				position: relative;
 				left: -180px;
+
+				@media (max-width: 1023px) {
+					left: 0px;
+				}
 			}
 			&:nth-child(2) {
 				display: grid;
 				grid-template-columns: repeat(2, 1fr);
 				gap: 20px;
+				@media (max-width: 560px) {
+					display: none;
+				}
 				> div {
 					background: rgba(164, 211, 255, 0.13);
 					border-radius: 30px;

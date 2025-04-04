@@ -121,7 +121,7 @@ const Preloader = observer(() => {
 					Welcome to the Inspire!
 				</motion.span>
 				<motion.h1
-					className='text-4xl font-bold flex gap-1'
+					className={style.title}
 					initial={{ opacity: 0, y: 20 }}
 					animate={{ opacity: 1, y: 0 }}
 					transition={{ duration: 0.6, ease: 'easeOut' }}

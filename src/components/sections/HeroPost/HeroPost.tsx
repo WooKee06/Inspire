@@ -22,7 +22,7 @@ export default function HeroPost() {
 
 			<motion.div
 				className='hero-post__info'
-				initial={{ opacity: 0, x: 40 }}
+				initial={{ opacity: 0, x: 20 }}
 				whileInView={{ opacity: 1, x: 0 }}
 				transition={{ duration: 1, delay: 0.3 }}
 				viewport={{ once: true, amount: 0.3 }}

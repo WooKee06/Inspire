@@ -4,11 +4,25 @@
 	align-items: center;
 	position: relative;
 
+	@media (max-width: 1023px) {
+		flex-direction: column;
+		gap: 20px;
+	}
+
 	&__img {
 		width: 55%;
 		height: 511px;
 		background: rgba(164, 211, 255, 0.13);
 		border-radius: 30px;
+
+		@media (max-width: 1023px) {
+			width: 100%;
+		}
+
+		@media (max-width: 590px) {
+			aspect-ratio: 1/1;
+			height: auto;
+		}
 	}
 
 	&__info {
@@ -20,6 +34,12 @@
 		position: absolute;
 		left: 50px;
 
+		@media (max-width: 1023px) {
+			position: relative;
+			left: 0;
+			width: 100%;
+		}
+
 		h2 {
 			font-family: 'Cinzel Decorative';
 			font-style: normal;
@@ -27,6 +47,14 @@
 			font-size: 68px;
 			line-height: 92px;
 			color: #ffffff;
+
+			@media (max-width: 560px) {
+				font-size: 50px;
+			}
+			@media (max-width: 480px) {
+				font-size: 25px;
+				line-height: 42px;
+			}
 		}
 
 		p {

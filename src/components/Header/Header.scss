@@ -6,6 +6,10 @@
 	transition: all 0.1s ease-in-out;
 	width: 100%;
 
+	@media (max-width: 560px) {
+		display: none;
+	}
+
 	.container {
 		padding: 15px 30px;
 		transition: all 0.3s ease-in-out;
@@ -17,6 +21,9 @@
 		margin: 0 auto;
 
 		.nav {
+			@media (max-width: 1023px) {
+				display: none;
+			}
 			ul {
 				display: flex;
 				align-items: center;

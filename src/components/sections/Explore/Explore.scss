@@ -11,6 +11,15 @@
 		font-size: 65px;
 		line-height: 129px;
 		color: #ffffff;
+
+		@media (max-width: 560px) {
+			font-size: 50px;
+		}
+
+		@media (max-width: 480px) {
+			font-size: 25px;
+			line-height: 42px;
+		}
 	}
 	> div {
 		width: 100%;
@@ -36,6 +45,10 @@
 				font-size: 23px;
 				line-height: 38px;
 				color: #ffffff;
+
+				@media (max-width: 480px) {
+					font-size: 16px;
+				}
 			}
 		}
 	}

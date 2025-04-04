@@ -15,7 +15,8 @@ body {
 	font-family: 'Cormorant SC', serif;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
-
+	overflow-x: hidden;
+	max-width: 100vw;
 	&.hidden {
 		overflow: hidden;
 	}
@@ -56,6 +57,10 @@ button {
 .wrapper {
 	width: 85%;
 	margin: 100px auto;
+
+	@media (max-width: 560px) {
+		margin: 60px auto;
+	}
 }
 
 .m-btn {
@@ -74,6 +79,10 @@ button {
 	border-radius: 40px;
 	background: rgba(87, 87, 87, 0.22);
 	backdrop-filter: blur(13.15px);
+
+	@media (max-width: 480px) {
+		font-size: 16px;
+	}
 
 	svg {
 		transition: all 0.3s ease-in-out;
