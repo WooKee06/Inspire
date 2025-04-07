@@ -1,45 +1,61 @@
 'use client'
 
+import axios from 'axios'
 import Link from 'next/link'
+import { useEffect, useState } from 'react'
 import { Navigation } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import './MovementList.scss'
 
+type Artwork = {
+	image: string
+	title: string
+	id?: number
+}
+
+type GetMovementsType = {
+	description: string
+	history: string
+	id: number
+	image: string
+	name: string
+	artworks: Artwork[]
+	year: number
+}
+
 const MovementList = () => {
+	const [movementsArr, setMovementsArr] = useState<GetMovementsType[]>([])
+	useEffect(() => {
+		const getMovementsAll = async () => {
+			try {
+				const result = await axios.get('/api/movements')
+				setMovementsArr(result.data)
+			} catch (error) {
+				console.log('error axios get', error)
+			}
+		}
+		getMovementsAll()
+	}, [])
 	return (
 		<div className='MovementList'>
 			<h2>Movements</h2>
 
 			<div>
-				{Array.from({ length: 5 }).map((_, index) => (
-					<Link href={`Movements/${index}`} key={index}>
+				{movementsArr.map((item, index) => (
+					<Link href={`Movements/${index + 1}`} key={index}>
 						<div className='Movement-item'>
 							<div className='Movement-item__info'>
 								<h3>
 									<hr />
-									Impressionism
+									{item.name}
 								</h3>
-								<small>(1860 - N)</small>
-								<p>
-									Impressionism, a broad term used to describe the work produced
-									in the late 19th century, especially between about 1867 and
-									1886, by a group of artists who shared a set of related
-									approaches and techniques. The founding Impressionist artists
-									included Claude Monet, Pierre-Auguste Renoir, Camille
-									Pissarro, Alfred Sisley, Edgar Degas, and Berthe
-									Morisot. Although these artists had stylistic differences,
-									they had a shared interest in accurately and objectively
-									recording contemporary life and the transient effects of light
-									and color. These concerns may seem fairly banal in the 21st
-									century, but in the 19th century—when historical, biblical,
-									and allegorical subjects were favored, and painting was
-									expected to have a high finish—they were revolutionary.
-								</p>
+								<small> {item.year}</small>
+								<p>{item.description}</p>
 								<button>Check artworks</button>
 							</div>
 							<div className='Movement-item__swiper'>
 								<div className='btn'>
-									<button className='Movement-prev'>
+									<button className={`Movement-prev-${item.id}`}>
 										<svg
 											width='30'
 											height='16'
@@ -53,7 +69,7 @@ const MovementList = () => {
 											/>
 										</svg>
 									</button>
-									<button className='Movement-next'>
+									<button className={`Movement-next-${item.id}`}>
 										<svg
 											width='30'
 											height='16'
@@ -74,16 +90,16 @@ const MovementList = () => {
 									spaceBetween={10}
 									modules={[Navigation]}
 									navigation={{
-										prevEl: '.Movement-prev',
-										nextEl: '.Movement-next',
+										prevEl: `.Movement-prev-${item.id}`,
+										nextEl: `.Movement-next-${item.id}`,
 									}}
 									className='mySwiper'
 								>
-									<SwiperSlide></SwiperSlide>
-									<SwiperSlide></SwiperSlide>
-									<SwiperSlide></SwiperSlide>
-									<SwiperSlide></SwiperSlide>
-									<SwiperSlide></SwiperSlide>
+									{item.artworks.map((artwcork, index) => (
+										<SwiperSlide key={index}>
+											<img src={artwcork.image} alt='' />
+										</SwiperSlide>
+									))}
 								</Swiper>
 							</div>
 						</div>

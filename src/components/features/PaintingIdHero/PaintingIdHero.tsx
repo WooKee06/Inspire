@@ -1,6 +1,51 @@
+import axios from 'axios'
+import { useParams } from 'next/navigation'
+import { FC, useEffect, useState } from 'react'
 import './PaintingIdHero.scss'
 
-const PaintingIdHero = () => {
+type artworksType = {
+	artist: string
+	description: string
+	id: number
+	image: string
+	movement_id: number
+	title: string
+	year: number
+}
+
+interface PaintingIdHeroProp {
+	movementInfo: string
+}
+
+const PaintingIdHero: FC<PaintingIdHeroProp> = ({ movementInfo }) => {
+	const [isLoading, setIsLoading] = useState(true)
+	const [error, setError] = useState<string | null>(null)
+	const params = useParams()
+	const [currentArtwork, setCurrentArtwork] = useState<
+		artworksType | undefined
+	>(undefined)
+
+	useEffect(() => {
+		const fetchMovement = async () => {
+			try {
+				setIsLoading(true)
+				const response = await axios.get<artworksType>(
+					`/api/movements/${params.movementId}/${params.paintingId}`
+				)
+
+				setCurrentArtwork(response.data)
+			} catch (err) {
+				setError(err instanceof Error ? err.message : 'Unknown error')
+			} finally {
+				setIsLoading(false)
+			}
+		}
+
+		if (params.movementId && params.paintingId) {
+			fetchMovement()
+		}
+	}, [params.movementId, params.paintingId])
+
 	return (
 		<div className='PaintingIdHero'>
 			<div className='PaintingIdHero-wrapper wrapper'>
@@ -28,30 +73,21 @@ const PaintingIdHero = () => {
 						</button>
 						<button className='like'>Add to Favorites</button>
 					</div>
-					<small>Impression, Sunrise (1872)</small>
-					<h1>art Title</h1>
-					<p>
-						Impressionism is an artistic movement that appeared in the second
-						half of the 19th century, which sought to convey fleeting
-						impressions of light, color and movement. Impressionist artists used
-						fast, light brushstrokes and bright, pure colors, avoiding harsh
-						contours. Their works often depicted everyday life, natural
-						landscapes, and urban scenes filled with air and light. The main
-						goal is to capture the moment as it appears to the eye at a certain
-						moment.
-					</p>
+					<small>
+						{movementInfo}, {currentArtwork?.title} {currentArtwork?.year}
+					</small>
+					<h1>{currentArtwork?.title}</h1>
+					<p>{currentArtwork?.description}</p>
 
 					<div className='artist-info'>
 						<span>About artist</span>
-						<p>
-							Camille Pissarro was born on July 10, 1830 on the island of St.
-							Thomas in the Danish West Indies to a wealthy Jewish family[7].
-							His father, Frederic Pissarro, was a Sephardic Jew whose ancestors
-							came from Portugal and had French citizenship.
-						</p>
+						<p>{currentArtwork?.artist}</p>
 					</div>
 				</div>
-				<div className='PaintingIdHero__img'></div>
+				<div
+					className='PaintingIdHero__img'
+					style={{ backgroundImage: `url('${currentArtwork?.image}')` }}
+				></div>
 			</div>
 		</div>
 	)

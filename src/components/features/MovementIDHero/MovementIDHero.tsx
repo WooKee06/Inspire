@@ -1,16 +1,75 @@
 'use client'
 
 import Gallery from '@/components/sections/Gellary/Gallery'
+import axios from 'axios'
+import { useParams } from 'next/navigation'
+import { useEffect, useState } from 'react'
+import { Swiper, SwiperSlide } from 'swiper/react'
 import './MovementIDHero.scss'
+type artworksType = {
+	artist: string
+	description: string
+	id: number
+	image: string
+	movement_id: number
+	title: string
+	year: number
+}
+
+type representativesType = {
+	avatar: string
+	id: number
+	movement_id: number
+	name: string
+	quote: string
+}
+
+type movementInfoType = {
+	year: number
+	representatives: representativesType[]
+	name: string
+	image: string
+	id: number
+	history: string
+	description: string
+	artworks: artworksType[]
+}
 
 const MovementIDHero = () => {
-	const HandleBack = () => {
-		window.history.back()
+	const [movement, setMovement] = useState<movementInfoType | null>(null)
+	const [isLoading, setIsLoading] = useState(true)
+	const [error, setError] = useState<string | null>(null)
+	const params = useParams()
+
+	useEffect(() => {
+		const fetchMovement = async () => {
+			try {
+				setIsLoading(true)
+				const response = await axios.get<movementInfoType>(
+					`/api/movements?id=${params.movementId}`
+				)
+				setMovement(response.data)
+				console.log(response.data)
+			} catch (err) {
+				console.error('Error fetching movement:', err)
+				setError('Failed to load movement data')
+			} finally {
+				setIsLoading(false)
+			}
+		}
+
+		if (params.movementId) {
+			fetchMovement()
+		}
+	}, [params.movementId])
+
+	const handleBack = () => {
+		history.back()
 	}
 	return (
 		<div className='MovementIDHero'>
 			<div className='MovementIDHero-wrapper '>
-				<span onClick={HandleBack}>
+				<span onClick={handleBack}>
 					<svg
 						width='33'
 						height='8'
@@ -26,143 +85,67 @@ const MovementIDHero = () => {
 					Back
 				</span>
 				<div>
-					<div className='MovementIDHero__img'></div>
+					<div
+						className='MovementIDHero__img'
+						style={{ backgroundImage: `url('${movement?.image}')` }}
+					></div>
 					<div className='MovementIDHero__info'>
-						<h1>Impressionism </h1>
-						<p>
-							Impressionism, a broad term used to describe the work produced in
-							the late 19th century, especially between about 1867 and 1886, by
-							a group of artists who shared a set of related approaches and
-							techniques. The founding Impressionist artists included Claude
-							Monet, Pierre-Auguste Renoir, Camille Pissarro, Alfred
-							Sisley, Edgar Degas, and Berthe Morisot. Although these artists
-							had stylistic differences, they had a shared interest in
-							accurately and objectively recording contemporary life and
-							the transient effects of light and color. These concerns may seem
-							fairly banal in the 21st century, but in the 19th century—when
-							historical, biblical, and allegorical subjects were favored,
-							and painting was expected to have a high finish—they were
-							revolutionary.
-						</p>
+						<h1>{movement?.name} </h1>
+						<p>{movement?.description}</p>
 						<button>Follow this Movement</button>
 					</div>
 				</div>
 				<div className='history'>
 					<span>History</span>
-					<p>
-						In 1874, a group of artists called the Anonymous Society of
-						Painters, Sculptors, Printmakers, etc. organized an exhibition in
-						Paris that launched the movement called Impressionism. Its founding
-						members included Claude Monet, Edgar Degas, and Camille Pissarro,
-						among others. The group was unified only by its independence from
-						the official annual Salon, for which a jury of artists from the
-						Académie des Beaux-Arts selected artworks and awarded medals. The
-						independent artists, despite their diverse approaches to painting,
-						appeared to contemporaries as a group. While conservative critics
-						panned their work for its unfinished, sketchlike appearance, more
-						progressive writers praised it for its depiction of modern life.
-						<br />
-						Edmond Duranty, for example, in his 1876 essay La Nouvelle
-						Peinture (The New Painting), wrote of their depiction of
-						contemporary subject matter in a suitably innovative style as a
-						revolution in painting. The exhibiting collective avoided choosing a
-						title that would imply a unified movement or school, although some
-						of them subsequently adopted the name by which they would eventually
-						be known, the Impressionists. Their work is recognized today for its
-						modernity, embodied in its rejection of established styles, its
-						incorporation of new technology and ideas, and its depiction of
-						modern life. Claude Monet’s Impression, Sunrise (Musée Marmottan
-						Monet, Paris) exhibited in 1874, gave the Impressionist movement its
-						name when the critic Louis Leroy accused it of being a sketch or
-						“impression,” not a finished painting. It demonstrates the
-						techniques many of the independent artists adopted: short, broken
-						brushstrokes that barely convey forms, pure unblended colors, and an
-						emphasis on the effects of light. Rather than neutral white, grays,
-						and blacks, Impressionists often rendered shadows and highlights in
-						color. The artists’ loose brushwork gives an effect of spontaneity
-						and effortlessness that masks their often carefully constructed
-						compositions, such as in Alfred Sisley’s 1878 Allée of Chestnut
-						Trees (1975.1.211). This seemingly casual style became widely
-						accepted, even in the official Salon, as the new language with which
-						to depict modern life. In addition to their radical technique, the
-						bright colors of Impressionist canvases were shocking for eyes
-						accustomed to the more sober colors of academic painting. Many of
-						the independent artists chose not to apply the thick golden varnish
-						that painters customarily used to tone down their works. The paints
-						themselves were more vivid as well. The nineteenth century saw the
-						development of synthetic pigments for artists’ paints, providing
-						vibrant shades of blue, green, and yellow that painters had never
-						used before. Édouard Manet’s 1874 Boating (29.100.115), for example,
-						features an expanse of the new cerulean blue and synthetic
-						ultramarine. Depicted in a radically cropped, Japanese-inspired
-						composition, the fashionable boater and his companion embody
-						modernity in their form, their subject matter, and the very
-						materials used to paint them. <br />
-						The last of the independent exhibitions in 1886 also saw the
-						beginning of a new phase in avant-garde painting. By this time, few
-						of the participants were working in a recognizably Impressionist
-						manner. Most of the core members were developing new, individual
-						styles that caused ruptures in the group’s tenuous unity. Pissarro
-						promoted the participation of Georges Seurat and Paul Signac, in
-						addition to adopting their new technique based on points of pure
-						color, known as Neo-Impressionism. The young Gauguin was making
-						forays into Primitivism. The nascent Symbolist Odilon Redon also
-						contributed, though his style was unlike that of any other
-						participant. Because of the group’s stylistic and philosophical
-						fragmentation, and because of the need for assured income, some of
-						the core members such as Monet and Renoir exhibited in venues where
-						their works were more likely to sell. <br /> Its many facets and
-						varied participants make the Impressionist movement difficult to
-						define. Indeed, its life seems as fleeting as the light effects it
-						sought to capture. Even so, Impressionism was a movement of enduring
-						consequence, as its embrace of modernity made it the springboard
-						for later avant-garde art in Europe.
-					</p>
+					<p>{movement?.history}</p>
 				</div>
 				<div className='representatives'>
-					<span>Representatives of Impressionism</span>
+					<span>Representatives of {movement?.name}</span>
 					<ul>
-						<li>
-							<div className='representative-img'></div>
-							<span>Claude Monet</span>
-						</li>
-						<li>
-							<div className='representative-img'></div>
-							<span>Edgar Degas</span>
-						</li>
+						<Swiper
+							spaceBetween={10}
+							slidesPerView={6}
+							freeMode={true}
+							watchSlidesProgress={true}
+							className='thumbs-swiper'
+						>
+							{movement?.representatives.map((item, index) => (
+								<SwiperSlide key={index}>
+									<li>
+										<div
+											className='representative-img'
+											style={{ backgroundImage: `url('${item.avatar}')` }}
+										></div>
+										<span>{item.name}</span>
+									</li>
+								</SwiperSlide>
+							))}
+						</Swiper>
 					</ul>
 					<div>
-						<div>
-							<div></div>
-							<div>
-								<span>Claude Monet</span>
-								<strong>Color is my obsession, joy and anguish.</strong>
-							</div>
-						</div>
-						<div>
-							<div></div>
-							<div>
-								<span>Pierre-Auguste Renoir</span>
-								<strong>
-									The picture should be pleasant, joyful and beautiful — yes,
-									beautiful! There are enough boring things in life as it is.
-								</strong>
-							</div>
-						</div>
-						<div>
-							<div></div>
-							<div>
-								<span>Edgar Dega</span>
-								<strong>
-									Painting requires a bit of mystery, some uncertainty, some
-									imagination.
-								</strong>
-							</div>
-						</div>
+						<Swiper
+							spaceBetween={10}
+							slidesPerView={3}
+							className='quotes-swiper'
+						>
+							{movement?.representatives.map((item, index) => (
+								<SwiperSlide key={index}>
+									<div>
+										<div
+											style={{ backgroundImage: `url('${item.avatar}')` }}
+										></div>
+										<div>
+											<span>{item.name}</span>
+											<strong>{item.quote}</strong>
+										</div>
+									</div>
+								</SwiperSlide>
+							))}
+						</Swiper>
 					</div>
 				</div>
 				<div className='history'>
-					<span>The influence of Impressionism</span>
+					<span>The influence of {movement?.name} </span>
 					<p>
 						The influence of Impressionism on art was significant and had an
 						impact on the development of art and society. Here are some of the
@@ -190,7 +173,9 @@ const MovementIDHero = () => {
 					</p>
 				</div>
 				<div className='Gallery'>
-					<span>Masterpieces in Impressionism (12)</span>
+					<span>
+						Masterpieces in {movement?.name} ({movement?.artworks.length})
+					</span>
 					<div className='Gallery-fillter'>
 						<div className='input'>
 							<input type='text' placeholder='Search art...' />
@@ -281,7 +266,7 @@ const MovementIDHero = () => {
 							</div>
 						</div>
 					</div>
-					<Gallery />
+					<Gallery artworks={movement?.artworks || []} />
 				</div>
 			</div>
 		</div>

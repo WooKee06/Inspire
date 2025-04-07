@@ -1,6 +1,7 @@
 'use client'
 
 import MainHero from '@/components/features/MainHero/MainHero'
+import Footer from '@/components/Footer/Footer'
 import Collection from '@/components/sections/Collection/Collection'
 import Explore from '@/components/sections/Explore/Explore'
 import HeroPost from '@/components/sections/HeroPost/HeroPost'
@@ -13,6 +14,7 @@ export default function Home() {
 			<HeroPost />
 			<Explore />
 			{/* <AlsoLike /> */}
+			<Footer />
 		</>
 	)
 }

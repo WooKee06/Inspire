@@ -1,6 +1,5 @@
 'use client'
 
-import Footer from '@/components/Footer/Footer'
 import Header from '@/components/Header/Header'
 import MobileNav from '@/components/mobileNav/MobileNav'
 import Preloader from '@/components/preloader/Preloader'
@@ -18,7 +17,6 @@ const RootLayout = observer(({ children }: { children: React.ReactNode }) => {
 				<Header />
 				<main>{children}</main>
 				<MobileNav />
-				<Footer />
 			</body>
 		</html>
 	)

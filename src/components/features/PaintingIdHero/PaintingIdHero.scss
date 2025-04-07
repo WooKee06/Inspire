@@ -10,7 +10,7 @@
 		display: grid;
 		grid-template-columns: repeat(2, 1fr);
 		gap: 30px;
-		width: 65%;
+		width: 70%;
 		align-items: center;
 	}
 
@@ -99,5 +99,7 @@
 		height: 500px;
 		border-radius: 10px;
 		background-color: #171c21;
+		background-size: cover;
+		background-repeat: no-repeat;
 	}
 }

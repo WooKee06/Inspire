@@ -59,6 +59,11 @@
 				display: flex;
 				align-items: center;
 				gap: 30px;
+				width: 100%;
+
+				.thumbs-swiper {
+					width: 100%;
+				}
 
 				li {
 					display: flex;
@@ -70,7 +75,8 @@
 						width: 80px;
 						height: 80px;
 						border-radius: 70px;
-						background-color: red;
+						background-size: cover;
+						background-repeat: no-repeat;
 					}
 
 					> span {
@@ -79,6 +85,7 @@
 						font-weight: 600;
 						font-size: 20px;
 						line-height: 18px;
+						text-align: center;
 						color: #ffffff;
 					}
 				}
@@ -88,44 +95,51 @@
 				display: flex;
 				align-items: flex-start;
 				gap: 20px;
+				width: 100%;
 
-				> div {
-					padding: 20px;
-					background: rgba(164, 211, 255, 0.05);
-					border-radius: 10px;
-					display: flex;
-					align-items: flex-start;
-					gap: 10px;
-					width: 500px;
+				.quotes-swiper {
+					width: 100%;
 
-					> div {
-						display: flex;
-						flex-direction: column;
-						gap: 5px;
+					.swiper-slide {
+						> div {
+							padding: 20px;
+							background: rgba(164, 211, 255, 0.05);
+							border-radius: 10px;
+							display: flex;
+							align-items: flex-start;
+							gap: 10px;
 
-						&:nth-child(1) {
-							min-width: 60px;
-							min-height: 60px;
-							border-radius: 50px;
-							background-color: red;
-						}
+							> div {
+								display: flex;
+								flex-direction: column;
+								gap: 5px;
 
-						span {
-							font-family: 'Cormorant SC';
-							font-style: normal;
-							font-weight: 700;
-							font-size: 18px;
-							line-height: 21px;
-							color: rgba(255, 255, 255, 0.46);
-						}
+								&:nth-child(1) {
+									min-width: 60px;
+									min-height: 60px;
+									border-radius: 50px;
+									background-size: cover;
+									background-repeat: no-repeat;
+								}
 
-						strong {
-							font-family: 'Cormorant SC';
-							font-style: normal;
-							font-weight: 300;
-							font-size: 22px;
-							line-height: 25px;
-							color: #ffffff;
+								span {
+									font-family: 'Cormorant SC';
+									font-style: normal;
+									font-weight: 700;
+									font-size: 18px;
+									line-height: 21px;
+									color: rgba(255, 255, 255, 0.46);
+								}
+
+								strong {
+									font-family: 'Cormorant SC';
+									font-style: normal;
+									font-weight: 300;
+									font-size: 22px;
+									line-height: 25px;
+									color: #ffffff;
+								}
+							}
 						}
 					}
 				}
@@ -215,8 +229,9 @@
 
 	&__img {
 		height: 500px;
-		background-color: red;
 		border-radius: 10px;
+		background-size: cover;
+		background-repeat: no-repeat;
 	}
 
 	&__info {
