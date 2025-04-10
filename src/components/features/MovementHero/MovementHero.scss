@@ -7,6 +7,11 @@
 	align-items: center;
 	position: relative;
 
+	@media (max-width: 560px) {
+		height: max-content;
+		margin: 50px 0;
+	}
+
 	&__img {
 		background-image: url('/MovementHero.svg');
 		background-size: cover;
@@ -16,6 +21,10 @@
 		z-index: 1;
 		width: 70%;
 		aspect-ratio: 2.1/1.2;
+
+		@media (max-width: 768px) {
+			width: 95%;
+		}
 	}
 
 	&__info {
@@ -28,6 +37,10 @@
 		width: 60%;
 		gap: 15px;
 
+		@media (max-width: 1023px) {
+			width: 90%;
+		}
+
 		span {
 			font-family: 'Raleway';
 			font-style: normal;
@@ -36,6 +49,10 @@
 			line-height: 23px;
 			text-align: center;
 			color: #cbcbcb;
+
+			@media (max-width: 560px) {
+				font-size: 14px;
+			}
 		}
 		h1 {
 			font-family: 'Cinzel Decorative';
@@ -46,6 +63,11 @@
 			text-align: center;
 			color: #ffffff;
 			width: 90%;
+
+			@media (max-width: 560px) {
+				line-height: 45px;
+				font-size: 40px;
+			}
 		}
 		p {
 			font-family: 'Shippori Mincho';
@@ -61,6 +83,10 @@
 			display: flex;
 			align-items: center;
 			gap: 15px;
+
+			@media (max-width: 560px) {
+				flex-direction: column;
+			}
 			button {
 				font-family: 'Raleway';
 				font-style: normal;

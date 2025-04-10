@@ -1,10 +1,23 @@
 'use client'
 
+import { FC } from 'react'
 import { Autoplay, Navigation } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import './SeeAlsoSwiper.scss'
 
-const SeeAlsoSwiper = () => {
+interface Artwork {
+	id: number
+	title: string
+	artist: string
+	year: number
+	image: string
+}
+
+interface SeeAlsoSwiperProps {
+	artworks?: Artwork[]
+}
+
+const SeeAlsoSwiper: FC<SeeAlsoSwiperProps> = ({ artworks }) => {
 	return (
 		<div className='SeeAlsoSwiper'>
 			<div className='SeeAlsoSwiper__title'>
@@ -56,15 +69,12 @@ const SeeAlsoSwiper = () => {
 				}}
 				className='mySwiper'
 			>
-				<SwiperSlide></SwiperSlide>
-				<SwiperSlide></SwiperSlide>
-				<SwiperSlide></SwiperSlide>
-				<SwiperSlide></SwiperSlide>
-				<SwiperSlide></SwiperSlide>
-				<SwiperSlide></SwiperSlide>
-				<SwiperSlide></SwiperSlide>
-				<SwiperSlide></SwiperSlide>
-				<SwiperSlide></SwiperSlide>
+				{artworks?.map((item, index) => (
+					<SwiperSlide
+						key={index}
+						style={{ backgroundImage: `url('${item.image}')` }}
+					></SwiperSlide>
+				))}
 			</Swiper>
 		</div>
 	)

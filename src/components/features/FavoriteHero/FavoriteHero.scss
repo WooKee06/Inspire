@@ -1,0 +1,41 @@
+.FavoriteHero {
+	height: 60vh;
+	width: 100%;
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	.FavoriteHero-wrapper {
+		display: flex;
+		flex-direction: column;
+		gap: 15px;
+		align-items: center;
+		width: 50%;
+
+		> span {
+			font-family: 'Cormorant SC';
+			font-style: normal;
+			font-weight: 400;
+			font-size: 16px;
+			line-height: 23px;
+			text-align: center;
+			color: #cbcbcb;
+		}
+		h1 {
+			font-family: 'Cinzel Decorative';
+			font-style: normal;
+			font-weight: 700;
+			font-size: 60px;
+			line-height: 55px;
+			text-align: center;
+			color: #ffffff;
+			width: 100%;
+			display: flex;
+			align-items: center;
+			gap: 10px;
+			flex-wrap: wrap;
+			justify-content: center;
+		}
+	}
+}

@@ -13,6 +13,10 @@
 		width: 100%;
 		aspect-ratio: 1/1;
 		background: rgba(164, 211, 255, 0.13);
+		background-image: url(https://avatars.mds.yandex.net/i?id=ee690fc2c566c3b0289ab1bfb72c9ebb_l-7547473-images-thumbs&n=13);
+		background-size: cover;
+		background-repeat: no-repeat;
+		background-position: center;
 		border-radius: 30px;
 
 		@media (max-width: 1023px) {
@@ -43,8 +47,14 @@
 				line-height: 92px;
 				color: #ffffff;
 
-				@media (max-width: 560px) {
+				@media (max-width: 768px) {
 					font-size: 50px;
+					line-height: 62px;
+				}
+
+				@media (max-width: 560px) {
+					font-size: 30px;
+					line-height: 42px;
 				}
 
 				@media (max-width: 480px) {
@@ -83,13 +93,16 @@
 					display: none;
 				}
 				> div {
-					background: rgba(164, 211, 255, 0.13);
+					background-size: cover;
+					background-repeat: no-repeat;
 					border-radius: 30px;
 					width: 100%;
 					height: 430px;
-
+					background-image: url(https://mir-s3-cdn-cf.behance.net/project_modules/1400/adda8d59261841.5a1c0f8e164e1.jpg);
+					background-position: center;
 					&:nth-child(2) {
 						height: 340px;
+						background-image: url(https://i.pinimg.com/originals/fa/f4/c1/faf4c1cb0861593a1881d0972a161af1.jpg);
 					}
 				}
 			}

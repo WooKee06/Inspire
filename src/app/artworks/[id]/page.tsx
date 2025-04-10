@@ -1,8 +1,7 @@
 'use client'
 
-import PaintingIdHero from '@/components/features/PaintingIdHero/PaintingIdHero'
+import ArtworkIdHero from '@/components/features/ArtworkIdHero/ArtworkIdHero'
 import Gallery from '@/components/sections/Gellary/Gallery'
-import SeeAlsoSwiper from '@/components/sections/SeeAlsoSwiper/SeeAlsoSwiper'
 import axios from 'axios'
 import { useParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
@@ -17,29 +16,8 @@ type artworksType = {
 	year: number
 }
 
-type representativesType = {
-	avatar: string
-	id: number
-	movement_id: number
-	name: string
-	quote: string
-}
-
-type movementInfoType = {
-	year: number
-	representatives: representativesType[]
-	name: string
-	image: string
-	id: number
-	history: string
-	description: string
-	artworks: artworksType[]
-}
-
 const PaintingId = () => {
-	const [movementInfo, setMovementInfo] = useState<movementInfoType | null>(
-		null
-	)
+	const [artwork, setArtwork] = useState<artworksType | null>(null)
 
 	const [isLoading, setIsLoading] = useState(true)
 	const [error, setError] = useState<string | null>(null)
@@ -49,11 +27,11 @@ const PaintingId = () => {
 		const fetchMovement = async () => {
 			try {
 				setIsLoading(true)
-				const response = await axios.get<movementInfoType>(
+				const response = await axios.get<artworksType>(
 					`/api/movements?id=${params.movementId}`
 				)
 
-				setMovementInfo(response.data)
+				setArtwork(response.data)
 			} catch (err) {
 				console.error('Error fetching movement:', err)
 				setError('Failed to load movement data')
@@ -69,8 +47,7 @@ const PaintingId = () => {
 
 	return (
 		<>
-			<PaintingIdHero movementInfo={movementInfo?.name || ''} />
-			<SeeAlsoSwiper artworks={movementInfo?.artworks || []} />
+			<ArtworkIdHero />
 			<div className='Gallery'>
 				<span>More paintings </span>
 				<Gallery />

@@ -93,6 +93,13 @@ const MovementList = () => {
 										prevEl: `.Movement-prev-${item.id}`,
 										nextEl: `.Movement-next-${item.id}`,
 									}}
+									breakpoints={{
+										320: { slidesPerView: 'auto', centeredSlidesBounds: true },
+										480: { slidesPerView: 'auto', centeredSlidesBounds: true },
+										560: { slidesPerView: 2, centeredSlidesBounds: false },
+										1024: { slidesPerView: 2 },
+										1280: { slidesPerView: 2 },
+									}}
 									className='mySwiper'
 								>
 									{item.artworks.map((artwcork, index) => (

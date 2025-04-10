@@ -45,6 +45,15 @@ body {
 	color: #ffffff;
 }
 
+.Gallery {
+	width: 90%;
+	margin: 20px auto;
+
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
 a {
 	color: inherit;
 	text-decoration: none;
@@ -60,6 +69,18 @@ button {
 
 	@media (max-width: 560px) {
 		margin: 60px auto;
+	}
+}
+
+.search-wrapper {
+	display: flex;
+	flex-direction: column;
+	gap: 15px;
+
+	@media (max-width: 560px) {
+		margin: 20px auto;
+		width: 95%;
+		padding-bottom: 80px;
 	}
 }
 

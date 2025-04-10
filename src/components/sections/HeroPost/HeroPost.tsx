@@ -28,12 +28,11 @@ export default function HeroPost() {
 				viewport={{ once: true, amount: 0.3 }}
 			>
 				<div>
-					<h2>POST title 2</h2>
+					<h2>Discover Art Through the Ages</h2>
 					<p>
-						Explore the world of art by studying paintings by modern and ancient
-						artists. You can find works from a variety of styles, schools and
-						eras: from Renaissance to Art Nouveau, from self-portraits to
-						religious painting.
+						Step into a world of creativity — from the mystique of Renaissance
+						masterpieces to the vivid expressions of modern art. Explore diverse
+						styles, emotions, and stories captured on canvas across centuries.
 					</p>
 					<button className='m-btn'>
 						Check post

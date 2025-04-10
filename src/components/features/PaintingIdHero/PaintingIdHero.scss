@@ -6,12 +6,42 @@
 	align-items: center;
 	justify-content: center;
 
+	@media (max-width: 560px) {
+		height: max-content;
+	}
+
 	.PaintingIdHero-wrapper {
-		display: grid;
-		grid-template-columns: repeat(2, 1fr);
-		gap: 30px;
-		width: 70%;
-		align-items: center;
+		&.wrapper {
+			display: flex;
+			flex-direction: column;
+			align-items: flex-start;
+			gap: 10px;
+		}
+
+		> div {
+			display: grid;
+			grid-template-columns: repeat(2, 1fr);
+			gap: 30px;
+			width: 100%;
+			align-items: center;
+			@media (max-width: 1023px) {
+				display: flex;
+				flex-direction: column-reverse;
+			}
+		}
+
+		@media (max-width: 1023px) {
+			margin-top: 260px;
+		}
+		@media (max-width: 768px) {
+			margin-top: 120px;
+		}
+
+		@media (max-width: 560px) {
+			width: 90%;
+			margin-top: 55px;
+			margin-bottom: 0;
+		}
 	}
 
 	&__info {
@@ -63,19 +93,24 @@
 			font-family: 'Cinzel Decorative';
 			font-style: normal;
 			font-weight: 700;
-			font-size: 50px;
-			line-height: 74px;
-			text-align: center;
+			font-size: 35px;
+			line-height: 45px;
+			text-align: left;
 			color: #ffffff;
+
+			@media (max-width: 560px) {
+				text-align: center;
+				font-size: 30px;
+			}
 		}
 
 		p {
 			font-family: 'Shippori Mincho';
 			font-style: normal;
 			font-weight: 400;
-			font-size: 18px;
+			font-size: 16px;
 			line-height: 29px;
-			color: #ffffff;
+			color: #ffffffe0;
 		}
 
 		.artist-info {
@@ -101,5 +136,10 @@
 		background-color: #171c21;
 		background-size: cover;
 		background-repeat: no-repeat;
+
+		@media (max-width: 1023px) {
+			height: auto;
+			aspect-ratio: 2/1.3;
+		}
 	}
 }

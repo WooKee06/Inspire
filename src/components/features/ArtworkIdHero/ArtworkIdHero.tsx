@@ -2,7 +2,7 @@ import BackButton from '@/components/ui/BackButton/BackButton'
 import axios from 'axios'
 import { useParams } from 'next/navigation'
 import { FC, useEffect, useState } from 'react'
-import './PaintingIdHero.scss'
+import '../PaintingIdHero/PaintingIdHero.scss'
 
 type artworksType = {
 	artist: string
@@ -14,13 +14,8 @@ type artworksType = {
 	year: number
 }
 
-interface PaintingIdHeroProp {
-	movementInfo: string
-}
-
-const PaintingIdHero: FC<PaintingIdHeroProp> = ({ movementInfo }) => {
+const ArtworkIdHero: FC = () => {
 	const [isLoading, setIsLoading] = useState(true)
-	const [error, setError] = useState<string | null>(null)
 	const params = useParams()
 	const [currentArtwork, setCurrentArtwork] = useState<
 		artworksType | undefined
@@ -31,27 +26,26 @@ const PaintingIdHero: FC<PaintingIdHeroProp> = ({ movementInfo }) => {
 			try {
 				setIsLoading(true)
 				const response = await axios.get<artworksType>(
-					`/api/movements/${params.movementId}/${params.paintingId}`
+					`/api/artworks/${params.id}`
 				)
 
 				setCurrentArtwork(response.data)
 			} catch (err) {
-				setError(err instanceof Error ? err.message : 'Unknown error')
+				console.log(err instanceof Error ? err.message : 'Unknown error')
 			} finally {
 				setIsLoading(false)
 			}
 		}
 
-		if (params.movementId && params.paintingId) {
+		if (params.id) {
 			fetchMovement()
 		}
-	}, [params.movementId, params.paintingId])
+	}, [params.id])
 
 	return (
 		<div className='PaintingIdHero'>
 			<div className='PaintingIdHero-wrapper wrapper'>
 				<BackButton />
-
 				<div>
 					<div className='PaintingIdHero__info'>
 						<div className='art-btn'>
@@ -75,7 +69,7 @@ const PaintingIdHero: FC<PaintingIdHeroProp> = ({ movementInfo }) => {
 							<button className='like'>Add to Favorites</button>
 						</div>
 						<small>
-							{movementInfo}, {currentArtwork?.title} {currentArtwork?.year}
+							{currentArtwork?.title} {currentArtwork?.year}
 						</small>
 						<h1>{currentArtwork?.title}</h1>
 						<p>{currentArtwork?.description}</p>
@@ -95,4 +89,4 @@ const PaintingIdHero: FC<PaintingIdHeroProp> = ({ movementInfo }) => {
 	)
 }
 
-export default PaintingIdHero
+export default ArtworkIdHero

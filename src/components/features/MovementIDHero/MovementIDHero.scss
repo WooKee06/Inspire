@@ -1,6 +1,6 @@
 .MovementIDHero {
 	width: 100%;
-	height: 100vh;
+	height: max-content;
 
 	.MovementIDHero-wrapper {
 		display: flex;
@@ -9,11 +9,25 @@
 		width: 85%;
 		margin: 0px auto;
 		margin-top: 160px;
+
+		@media (max-width: 1023px) {
+			margin-top: 90px;
+		}
+		@media (max-width: 560px) {
+			margin-top: 50px;
+			width: 95%;
+		}
+
 		> div {
 			display: grid;
 			grid-template-columns: repeat(2, 1fr);
 			align-items: center;
 			gap: 40px;
+
+			@media (max-width: 1023px) {
+				display: flex;
+				flex-direction: column;
+			}
 		}
 		.history {
 			display: flex;
@@ -29,6 +43,10 @@
 				font-size: 30px;
 				line-height: 36px;
 				color: #ffffff;
+
+				@media (max-width: 767px) {
+					font-size: 25px;
+				}
 			}
 			p {
 				font-family: 'Shippori Mincho';
@@ -37,6 +55,10 @@
 				font-size: 18px;
 				line-height: 30px;
 				color: #ffffff;
+
+				@media (max-width: 767px) {
+					font-size: 16px;
+				}
 			}
 		}
 
@@ -53,6 +75,10 @@
 				font-size: 30px;
 				line-height: 36px;
 				color: #ffffff;
+
+				@media (max-width: 767px) {
+					font-size: 25px;
+				}
 			}
 
 			ul {
@@ -146,7 +172,7 @@
 			}
 		}
 
-		.Gallery {
+		.MovementIDHero__gallery {
 			margin: 0;
 			width: 100%;
 			display: flex;
@@ -154,84 +180,32 @@
 			align-items: flex-start;
 			gap: 20px;
 
-			.Gallery-fillter {
-				display: flex;
-				align-items: center;
-				gap: 20px;
+			> span {
+				font-family: 'Cormorant SC';
+				font-style: normal;
+				font-weight: 700;
+				font-size: 30px;
+				line-height: 36px;
+				color: #ffffff;
 
-				hr {
-					border: none;
-					height: 30px;
-					width: 1px;
-					background-color: #afccff22;
-				}
-
-				.input {
-					display: flex;
-					align-items: center;
-					justify-content: space-between;
-					padding: 12px 20px;
-					background: rgba(154, 183, 255, 0.08);
-					border-radius: 35px;
-					gap: 10px;
-
-					> input {
-						border: none;
-						background: none;
-						outline: none;
-						font-family: 'Raleway';
-						font-style: normal;
-						font-weight: 400;
-						font-size: 14px;
-						line-height: 16px;
-						width: 300px;
-						color: rgba(255, 255, 255, 0.42);
-					}
-				}
-
-				.dropdawn {
-					cursor: pointer;
-					> div {
-						padding: 15px 20px;
-						background: rgba(154, 183, 255, 0.08);
-						border-radius: 10px;
-						display: flex;
-						align-items: center;
-						gap: 10px;
-
-						> span {
-							font-family: 'Raleway';
-							font-style: normal;
-							font-weight: 400;
-							font-size: 16px;
-							line-height: 19px;
-							color: #ffffff;
-						}
-					}
+				@media (max-width: 767px) {
+					font-size: 25px;
 				}
 			}
-		}
-
-		> span {
-			display: flex;
-			align-items: center;
-			gap: 5px;
-			font-family: 'Raleway';
-			font-style: normal;
-			font-weight: 400;
-			font-size: 18px;
-			line-height: 21px;
-			text-decoration-line: underline;
-			color: #ffffff;
-			cursor: pointer;
 		}
 	}
 
 	&__img {
 		height: 500px;
+		width: 100%;
 		border-radius: 10px;
 		background-size: cover;
 		background-repeat: no-repeat;
+
+		@media (max-width: 1023px) {
+			height: auto;
+			aspect-ratio: 2/1.4;
+		}
 	}
 
 	&__info {
@@ -249,6 +223,13 @@
 			text-align: center;
 
 			color: #ffffff;
+
+			@media (max-width: 767px) {
+				font-size: 35px;
+				line-height: 34px;
+				text-align: center;
+				color: #ffffff;
+			}
 		}
 
 		p {
@@ -259,6 +240,10 @@
 			line-height: 28px;
 
 			color: #ffffff;
+
+			@media (max-width: 767px) {
+				font-size: 16px;
+			}
 		}
 
 		button {

@@ -12,7 +12,9 @@
 	&__img {
 		width: 55%;
 		height: 511px;
-		background: rgba(164, 211, 255, 0.13);
+		background-image: url(https://cs1.livemaster.ru/storage/d6/3c/f97641c023b6aeb5fed22d524670--kartiny-i-panno-kopiya-po-motivam-van-goga-zvezdnaya-noch-nad.jpg);
+		background-size: cover;
+		background-repeat: no-repeat;
 		border-radius: 30px;
 
 		@media (max-width: 1023px) {
@@ -47,10 +49,16 @@
 			font-size: 68px;
 			line-height: 92px;
 			color: #ffffff;
+			@media (max-width: 768px) {
+				font-size: 50px;
+				line-height: 62px;
+			}
 
 			@media (max-width: 560px) {
-				font-size: 50px;
+				font-size: 30px;
+				line-height: 42px;
 			}
+
 			@media (max-width: 480px) {
 				font-size: 25px;
 				line-height: 42px;

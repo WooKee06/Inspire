@@ -1,0 +1,56 @@
+.main-fillter {
+	display: flex;
+	align-items: center;
+	gap: 20px;
+
+	hr {
+		border: none;
+		height: 30px;
+		width: 1px;
+		background-color: #afccff22;
+	}
+
+	.input {
+		display: flex;
+		align-items: center;
+		width: -webkit-fill-available;
+		width: fill-available;
+		padding: 12px 15px;
+		background: rgba(154, 183, 255, 0.08);
+		border-radius: 10px;
+		gap: 10px;
+		> input {
+			color: #ffffff;
+			border: none;
+			background: none;
+			outline: none;
+			font-family: 'Raleway';
+			font-style: normal;
+			font-weight: 400;
+			font-size: 14px;
+			line-height: 16px;
+			width: 300px;
+		}
+	}
+
+	.dropdawn {
+		cursor: pointer;
+		> div {
+			padding: 13px 20px;
+			background: rgba(154, 183, 255, 0.08);
+			border-radius: 10px;
+			display: flex;
+			align-items: center;
+			gap: 10px;
+
+			> span {
+				font-family: 'Raleway';
+				font-style: normal;
+				font-weight: 400;
+				font-size: 15px;
+				line-height: 19px;
+				color: #ffffff;
+			}
+		}
+	}
+}
