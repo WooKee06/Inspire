@@ -252,10 +252,21 @@
 			font-weight: 400;
 			font-size: 18px;
 			line-height: 22px;
-			padding: 12px 23px;
+			padding: 10px 23px;
 			color: #ffffff;
 			background: rgba(255, 255, 255, 0.11);
 			border-radius: 36px;
+			transition: all 0.3s ease-in-out;
+			box-shadow: 0 0 20px 0px transparent;
+
+			&:hover {
+				background: rgba(255, 255, 255, 0.034);
+			}
+
+			&.active {
+				box-shadow: 0 0 20px 0px #f4205523;
+				background: #f42055;
+			}
 		}
 	}
 }

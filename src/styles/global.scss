@@ -76,6 +76,7 @@ button {
 	display: flex;
 	flex-direction: column;
 	gap: 15px;
+	width: 95%;
 
 	@media (max-width: 560px) {
 		margin: 20px auto;

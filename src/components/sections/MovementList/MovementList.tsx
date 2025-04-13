@@ -3,6 +3,7 @@
 import axios from 'axios'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
+import Skeleton from 'react-loading-skeleton'
 import { Navigation } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import './MovementList.scss'
@@ -25,21 +26,64 @@ type GetMovementsType = {
 
 const MovementList = () => {
 	const [movementsArr, setMovementsArr] = useState<GetMovementsType[]>([])
+	const [loading, setLoading] = useState(false)
+
 	useEffect(() => {
 		const getMovementsAll = async () => {
 			try {
+				setLoading(true)
 				const result = await axios.get('/api/movements')
 				setMovementsArr(result.data)
 			} catch (error) {
 				console.log('error axios get', error)
+			} finally {
+				setLoading(false)
 			}
 		}
 		getMovementsAll()
 	}, [])
+
+	if (loading) {
+		return (
+			<div className='MovementList'>
+				<h2>
+					<Skeleton width={150} />
+				</h2>
+				<div>
+					{Array.from({ length: 3 }).map((_, index) => (
+						<div className='Movement-item' key={`skeleton-${index}`}>
+							<div className='Movement-item__info'>
+								<h3>
+									<hr />
+									<Skeleton width={200} />
+								</h3>
+								<small>
+									<Skeleton width={80} />
+								</small>
+								<p>
+									<Skeleton count={3} />
+								</p>
+								<button>
+									<Skeleton width={120} height={0} />
+								</button>
+							</div>
+							<div className='Movement-item__swiper'>
+								<div className='swiper-skeleton'>
+									<div className='swiper-slide-skeleton'>
+										<Skeleton height={400} />
+									</div>
+								</div>
+							</div>
+						</div>
+					))}
+				</div>
+			</div>
+		)
+	}
+
 	return (
 		<div className='MovementList'>
 			<h2>Movements</h2>
-
 			<div>
 				{movementsArr.map((item, index) => (
 					<Link href={`Movements/${index + 1}`} key={index}>

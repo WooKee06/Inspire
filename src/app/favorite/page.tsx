@@ -1,11 +1,11 @@
 import FavoriteHero from '@/components/features/FavoriteHero/FavoriteHero'
-import Header from '@/components/Header/Header'
+import FavoriteMovements from '@/components/sections/FavoriteMovements/FavoriteMovements'
 
 const Favorite = () => {
 	return (
 		<>
-			<Header />
 			<FavoriteHero />
+			<FavoriteMovements />
 		</>
 	)
 }

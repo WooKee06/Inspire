@@ -1,0 +1,63 @@
+.FavoriteMovements {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 10px;
+	margin-top: 0;
+
+	&__title {
+		font-weight: 700;
+		font-size: 35px;
+		line-height: 50px;
+		text-align: center;
+		color: #ffffff;
+	}
+	.gallary-title {
+		font-weight: 700;
+		font-size: 35px;
+		line-height: 50px;
+		text-align: center;
+		color: #ffffff;
+	}
+
+	&__swiper {
+		width: 100%;
+		.swiper-wrapper {
+			width: 100%;
+		}
+		.swiper-slide {
+			width: 400px;
+			position: relative;
+			display: flex;
+			flex-direction: column;
+			gap: 10px;
+			> div {
+				position: relative;
+				border-radius: 10px;
+				background-size: cover;
+				background-repeat: no-repeat;
+				width: 100%;
+				height: 300px;
+
+				> span {
+					position: absolute;
+					bottom: 10px;
+					left: 10px;
+					font-weight: 700;
+					font-size: 25px;
+					line-height: 34px;
+					text-align: center;
+
+					color: #ffffff;
+				}
+			}
+
+			small {
+				font-family: 'Cinzel Decorative';
+				font-style: normal;
+				font-size: 16px;
+				opacity: 0.5;
+			}
+		}
+	}
+}

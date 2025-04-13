@@ -45,70 +45,70 @@
 	border-radius: 10px;
 }
 
-.artwork-image-wrapper {
+.artwork {
 	position: relative;
-	overflow: hidden;
-	cursor: pointer;
-	> div {
-		display: flex;
-		flex-direction: column;
-		position: absolute;
-		bottom: 10px;
-		left: 10px;
-		transform: translateY(20px);
-		opacity: 0;
-		transition: all 0.2s ease-in-out;
 
-		span {
-			font-size: 16px;
-		}
-
-		small {
-			font-size: 14px;
-			opacity: 0.6;
-		}
-
-		@media (max-width: 560px) {
-			display: none;
-		}
-	}
-
-	&::before {
-		content: '';
-		width: 100%;
-		position: absolute;
-		bottom: 0;
-		left: 0;
-		height: 100%;
-		opacity: 0;
-		background: linear-gradient(
-			180deg,
-			rgba(255, 255, 255, 0) 0%,
-			#0000009f 100%
-		);
-
-		transform: translateY(20px);
-		transition: all 0.2s ease-in-out;
-		border-radius: 0 0 10px 10px;
-	}
-
-	&:hover {
+	.artwork-image-wrapper {
+		position: relative;
+		overflow: hidden;
+		cursor: pointer;
 		> div {
-			transform: translateY(0px);
-			opacity: 1;
-		}
+			display: flex;
+			flex-direction: column;
+			position: absolute;
+			bottom: 10px;
+			left: 10px;
+			transform: translateY(20px);
+			opacity: 0;
+			transition: all 0.2s ease-in-out;
 
-		button {
-			transform: translateY(0px);
-			opacity: 1;
+			span {
+				font-size: 16px;
+			}
+
+			small {
+				font-size: 14px;
+				opacity: 0.6;
+			}
+
+			@media (max-width: 560px) {
+				display: none;
+			}
 		}
 
 		&::before {
-			transform: translateY(0px);
+			content: '';
+			width: 100%;
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			height: 100%;
+			opacity: 0;
+			background: linear-gradient(
+				180deg,
+				rgba(255, 255, 255, 0) 0%,
+				#0000009f 100%
+			);
 
-			opacity: 1;
+			transform: translateY(20px);
+			transition: all 0.2s ease-in-out;
+			border-radius: 0 0 10px 10px;
+		}
+
+		&:hover {
+			> div {
+				transform: translateY(0px);
+				opacity: 1;
+			}
+
+			&::before {
+				transform: translateY(0px);
+
+				opacity: 1;
+			}
 		}
 	}
+
 	button {
 		position: absolute;
 		top: 10px;
@@ -116,35 +116,47 @@
 		background-color: rgba(132, 136, 255, 0.11);
 		border-radius: 6px;
 		backdrop-filter: blur(5px);
-		width: 24px;
-		height: 24px;
+		width: 30px;
+		height: 30px;
 		cursor: pointer;
 		display: flex;
 		align-items: center;
 		justify-content: center;
 		transform: translateY(-20px);
 		opacity: 0;
+		z-index: 2;
 		transition: all 0.2s ease-in-out;
 		svg {
+			transition: all 0.2s ease-in-out;
 			width: 20px;
 			path {
 				fill: none;
+				transition: all 0.2s ease-in-out;
 				stroke: #ffffff;
 			}
 		}
 		@media (max-width: 560px) {
 			display: none;
 		}
-		&.active {
+		&.liked {
 			svg {
 				width: 20px;
 				path {
 					fill: #8488ff;
+					stroke: transparent;
 				}
 			}
 		}
 	}
+
+	&:hover {
+		button {
+			transform: translateY(0px);
+			opacity: 1;
+		}
+	}
 }
+
 .artwork-column {
 	display: flex;
 	flex-direction: column;

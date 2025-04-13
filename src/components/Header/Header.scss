@@ -47,7 +47,7 @@
 		.header-btns {
 			display: flex;
 			align-items: center;
-			gap: 20px;
+			gap: 10px !important;
 
 			.input {
 				padding: 9px 16px;
@@ -72,6 +72,18 @@
 						color: rgba(255, 255, 255, 0.42);
 					}
 				}
+			}
+
+			.search,
+			.favorite {
+				background: rgba(39, 39, 39, 0.356);
+				border-radius: 10px;
+
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				width: 37px;
+				height: 37px;
 			}
 		}
 	}

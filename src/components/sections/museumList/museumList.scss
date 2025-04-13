@@ -213,8 +213,10 @@
 							color: #ffffff;
 							transition: all 0.3s ease-in-out;
 							cursor: pointer;
+							border: 1px solid transparent;
 							&:hover {
-								background: #ec003b;
+								background: transparent;
+								border: 1px solid #f42055;
 							}
 
 							@media (max-width: 767px) {

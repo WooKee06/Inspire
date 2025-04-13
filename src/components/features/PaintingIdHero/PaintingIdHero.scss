@@ -68,7 +68,6 @@
 				justify-content: center;
 			}
 			.like {
-				background: #f42055;
 				backdrop-filter: blur(17.5px);
 				border-radius: 36px;
 				font-family: 'Raleway';
@@ -77,6 +76,20 @@
 				font-size: 16px;
 				color: #ffffff;
 				padding: 12px 50px;
+
+				background: rgba(255, 255, 255, 0.11);
+
+				transition: all 0.3s ease-in-out;
+				box-shadow: 0 0 20px 0px transparent;
+
+				&:hover {
+					background: rgba(255, 255, 255, 0.034);
+				}
+
+				&.liked {
+					box-shadow: 0 0 20px 0px #f4205523;
+					background: #f42055;
+				}
 			}
 		}
 		small {

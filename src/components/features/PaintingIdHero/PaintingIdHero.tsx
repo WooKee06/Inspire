@@ -1,7 +1,10 @@
 import BackButton from '@/components/ui/BackButton/BackButton'
+import preloaderStore from '@/store/preloaderStore'
 import axios from 'axios'
+import { observer } from 'mobx-react'
 import { useParams } from 'next/navigation'
 import { FC, useEffect, useState } from 'react'
+import Skeleton from 'react-loading-skeleton'
 import './PaintingIdHero.scss'
 
 type artworksType = {
@@ -18,22 +21,27 @@ interface PaintingIdHeroProp {
 	movementInfo: string
 }
 
-const PaintingIdHero: FC<PaintingIdHeroProp> = ({ movementInfo }) => {
+const PaintingIdHero: FC<PaintingIdHeroProp> = observer(({ movementInfo }) => {
 	const [isLoading, setIsLoading] = useState(true)
 	const [error, setError] = useState<string | null>(null)
 	const params = useParams()
-	const [currentArtwork, setCurrentArtwork] = useState<
-		artworksType | undefined
-	>(undefined)
+	const [currentArtwork, setCurrentArtwork] = useState<artworksType | null>(
+		null
+	)
+	const { addFavoriteAtrs, isFavorite } = preloaderStore
+
+	const addFavoriteHandler = () => {
+		if (!currentArtwork) return
+		addFavoriteAtrs(currentArtwork)
+	}
 
 	useEffect(() => {
-		const fetchMovement = async () => {
+		const fetchArtwork = async () => {
 			try {
 				setIsLoading(true)
 				const response = await axios.get<artworksType>(
 					`/api/movements/${params.movementId}/${params.paintingId}`
 				)
-
 				setCurrentArtwork(response.data)
 			} catch (err) {
 				setError(err instanceof Error ? err.message : 'Unknown error')
@@ -43,9 +51,50 @@ const PaintingIdHero: FC<PaintingIdHeroProp> = ({ movementInfo }) => {
 		}
 
 		if (params.movementId && params.paintingId) {
-			fetchMovement()
+			fetchArtwork()
 		}
 	}, [params.movementId, params.paintingId])
+
+	if (isLoading) {
+		return (
+			<div className='PaintingIdHero'>
+				<div className='PaintingIdHero-wrapper wrapper'>
+					<BackButton />
+
+					<div>
+						<div
+							className='PaintingIdHero__info'
+							style={{ alignItems: 'stretch' }}
+						>
+							<div className='art-btn'>
+								<Skeleton width={50} height={50} circle={true} />
+								<Skeleton width={220} height={40} />
+							</div>
+
+							<h1>
+								<Skeleton width={320} height={70} />
+							</h1>
+							<p>
+								<Skeleton count={7} />
+							</p>
+
+							<div className='artist-info'>
+								<span>About artist</span>
+								<p>
+									<Skeleton height={80} />
+								</p>
+							</div>
+						</div>
+						<Skeleton height={550} />
+					</div>
+				</div>
+			</div>
+		)
+	}
+
+	if (!currentArtwork) {
+		return <div>Картина не найдена</div>
+	}
 
 	return (
 		<div className='PaintingIdHero'>
@@ -72,27 +121,36 @@ const PaintingIdHero: FC<PaintingIdHeroProp> = ({ movementInfo }) => {
 									/>
 								</svg>
 							</button>
-							<button className='like'>Add to Favorites</button>
+							<button
+								className={`like ${
+									isFavorite(currentArtwork.id) ? 'liked' : ''
+								}`}
+								onClick={addFavoriteHandler}
+							>
+								{isFavorite(currentArtwork.id)
+									? 'In Favorites'
+									: 'Add to Favorites'}
+							</button>
 						</div>
 						<small>
-							{movementInfo}, {currentArtwork?.title} {currentArtwork?.year}
+							{movementInfo}, {currentArtwork.title} {currentArtwork.year}
 						</small>
-						<h1>{currentArtwork?.title}</h1>
-						<p>{currentArtwork?.description}</p>
+						<h1>{currentArtwork.title}</h1>
+						<p>{currentArtwork.description}</p>
 
 						<div className='artist-info'>
 							<span>About artist</span>
-							<p>{currentArtwork?.artist}</p>
+							<p>{currentArtwork.artist}</p>
 						</div>
 					</div>
 					<div
 						className='PaintingIdHero__img'
-						style={{ backgroundImage: `url('${currentArtwork?.image}')` }}
-					></div>
+						style={{ backgroundImage: `url('${currentArtwork.image}')` }}
+					/>
 				</div>
 			</div>
 		</div>
 	)
-}
+})
 
 export default PaintingIdHero

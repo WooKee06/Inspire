@@ -2,9 +2,12 @@
 
 import Gallery from '@/components/sections/Gellary/Gallery'
 import BackButton from '@/components/ui/BackButton/BackButton'
+import preloaderStore from '@/store/preloaderStore'
 import axios from 'axios'
+import { observer } from 'mobx-react'
 import { useParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
+import Skeleton from 'react-loading-skeleton'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import './MovementIDHero.scss'
 
@@ -37,10 +40,19 @@ type movementInfoType = {
 	artworks: artworksType[]
 }
 
-const MovementIDHero = () => {
+const MovementIDHero = observer(() => {
 	const [movement, setMovement] = useState<movementInfoType | null>(null)
 	const [isLoading, setIsLoading] = useState(true)
+
 	const params = useParams()
+	const { addMovements, loadFromLocalStorage, isMovementFavorite } =
+		preloaderStore
+
+	const handleAddFavorite = () => {
+		if (!movement) return
+		addMovements(movement)
+		isMovementFavorite(movement.id)
+	}
 
 	useEffect(() => {
 		const fetchMovement = async () => {
@@ -60,10 +72,98 @@ const MovementIDHero = () => {
 		if (params.movementId) {
 			fetchMovement()
 		}
+
+		loadFromLocalStorage()
 	}, [params.movementId])
 
 	if (isLoading) {
-		return <span>Загрузка</span>
+		return (
+			<>
+				<div className='MovementIDHero'>
+					<div className='MovementIDHero-wrapper '>
+						<BackButton />
+						<div>
+							<Skeleton height={500} />
+							<div
+								className='MovementIDHero__info'
+								style={{ alignItems: 'stretch' }}
+							>
+								<Skeleton height={50} />
+								<Skeleton height={20} count={12} />
+								<Skeleton height={45} width={230} />
+							</div>
+						</div>
+						<div
+							className='history'
+							style={{ margin: '0', alignItems: 'stretch' }}
+						>
+							<span>History</span>
+							<Skeleton width={100} height={30} />
+							<br />
+							<Skeleton height={20} count={4} />
+
+							<Skeleton height={20} count={2} />
+						</div>
+						<div className='representatives'>
+							<span>
+								Representatives of {<Skeleton width={200} height={30} />}
+							</span>
+							<ul>
+								<Swiper
+									spaceBetween={10}
+									slidesPerView={6}
+									freeMode={true}
+									watchSlidesProgress={true}
+									breakpoints={{
+										320: { slidesPerView: 2 },
+										480: { slidesPerView: 3 },
+										768: { slidesPerView: 4 },
+										1024: { slidesPerView: 5 },
+										1280: { slidesPerView: 6 },
+									}}
+									className='thumbs-swiper'
+								>
+									{Array.from({ length: 2 }).map((item, index) => (
+										<SwiperSlide key={index}>
+											<li>
+												<Skeleton width={80} height={80} circle={true} />
+												<Skeleton width={120} height={20} />
+											</li>
+										</SwiperSlide>
+									))}
+								</Swiper>
+							</ul>
+							<div>
+								<Swiper
+									spaceBetween={10}
+									slidesPerView={3}
+									className='quotes-swiper'
+									breakpoints={{
+										320: { slidesPerView: 1 },
+										480: { slidesPerView: 1 },
+										768: { slidesPerView: 2 },
+										1024: { slidesPerView: 3 },
+										1280: { slidesPerView: 3 },
+									}}
+								>
+									{Array.from({ length: 6 }).map((item, index) => (
+										<SwiperSlide key={index}>
+											<div>
+												<Skeleton height={120} />
+												<div style={{ width: '100%', alignItems: 'stretch' }}>
+													<Skeleton width={200} height={25} />
+													<Skeleton height={20} count={4} />
+												</div>
+											</div>
+										</SwiperSlide>
+									))}
+								</Swiper>
+							</div>
+						</div>
+					</div>
+				</div>
+			</>
+		)
 	}
 
 	return (
@@ -78,7 +178,14 @@ const MovementIDHero = () => {
 					<div className='MovementIDHero__info'>
 						<h1>{movement?.name} </h1>
 						<p>{movement?.description}</p>
-						<button>Follow this Movement</button>
+						<button
+							onClick={handleAddFavorite}
+							className={isMovementFavorite(movement.id) ? 'active' : ''}
+						>
+							{isMovementFavorite(movement.id)
+								? 'Following'
+								: 'Follow this Movement'}
+						</button>
 					</div>
 				</div>
 				<div className='history'>
@@ -182,6 +289,6 @@ const MovementIDHero = () => {
 			</div>
 		</div>
 	)
-}
+})
 
 export default MovementIDHero
