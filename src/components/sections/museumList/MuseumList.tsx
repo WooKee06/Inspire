@@ -1,72 +1,177 @@
 'use client'
 
+import axios from 'axios'
+import Link from 'next/link'
+import React, { useEffect, useRef, useState } from 'react'
+import Skeleton from 'react-loading-skeleton'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import './museumList.scss'
-const MuseumList = () => {
+
+interface artworksType {
+	title: string
+	image: string
+	artist: string
+	year: number
+}
+
+interface museumsType {
+	id: number
+	name: string
+	preview_image: string
+	full_description: string
+	short_description: string
+	website_link: string
+	artworks: artworksType[]
+}
+
+const MuseumList = React.memo(() => {
+	const [museums, setMuseums] = useState<museumsType[]>([])
+	const [loading, setLoading] = useState(false)
+	const museumRefs = useRef<(HTMLLIElement | null)[]>([])
+
+	useEffect(() => {
+		const FetchData = async () => {
+			try {
+				setLoading(true)
+				const response = await axios.get('/api/museums')
+				setMuseums(response.data)
+			} catch (error) {
+				console.log(error, 'error FetchDataMuseums')
+			} finally {
+				setLoading(false)
+			}
+		}
+
+		FetchData()
+	}, [])
+
+	const scrollToMuseum = (index: number) => {
+		museumRefs.current[index]?.scrollIntoView({
+			behavior: 'smooth',
+			block: 'center',
+		})
+	}
+
+	if (loading) {
+		return (
+			<div className=' wrapper museum-list'>
+				<div className='museum-list__best'>
+					<span
+						style={{
+							display: 'flex',
+							alignItems: 'stretch',
+							flexDirection: 'column',
+						}}
+					>
+						<Skeleton height={40} />
+					</span>
+					<ul>
+						{Array.from({ length: 10 }).map((item, index) => (
+							<Skeleton height={60} />
+						))}
+					</ul>
+				</div>
+				<div className='museum-list__museums'>
+					<Skeleton height={60} width={320} />
+					<ul>
+						{Array.from({ length: 10 }).map((museum, index) => (
+							<li key={index} className='museum-item'>
+								<div>
+									<div className='museum-item__info'>
+										<div>
+											<span>
+												<Skeleton height={80} width={60} />
+											</span>
+											<div style={{ alignItems: 'stretch' }}>
+												<small>
+													<Skeleton height={20} width={250} />
+												</small>
+												<h2
+													style={{
+														alignItems: 'stretch',
+														flexDirection: 'column',
+													}}
+												>
+													<Skeleton height={40} />
+												</h2>
+											</div>
+										</div>
+										<p>
+											<Skeleton count={8} />
+										</p>
+
+										<div className='btns'>
+											<Skeleton height={45} width={320} />
+										</div>
+									</div>
+									<Skeleton height={370} />
+								</div>
+								<div className='museum-item__swiper'>
+									<Swiper
+										spaceBetween={20}
+										slidesPerView='auto'
+										grabCursor={true}
+										autoplay={{ delay: 3000, disableOnInteraction: false }}
+									>
+										{Array.from({ length: 10 }).map((item, index) => (
+											<SwiperSlide>
+												<Skeleton height={220} />
+											</SwiperSlide>
+										))}
+									</Swiper>
+								</div>
+							</li>
+						))}
+					</ul>
+				</div>
+			</div>
+		)
+	}
+
 	return (
 		<div className=' wrapper museum-list'>
 			<div className='museum-list__best'>
-				<span>10 Best Museums in the World</span>
+				<span>{museums.length} Best Museums in the World</span>
 				<ul>
-					<li>1. The Louvre, France</li>
-					<li>2. Smithsonian National Air and Space Museum, USA</li>
-					<li>3. British Museum, England</li>
-					<li>4. Vatican Museums, Vatican City</li>
-					<li>5. The Metropolitan Museum of Art, USA</li>
-					<li>6. State Hermitage Museum, Russia</li>
-					<li>6. State Hermitage Museum, Russia</li>
-					<li>6. State Hermitage Museum, Russia</li>
+					{museums.map((item, index) => (
+						<li key={index} onClick={() => scrollToMuseum(index)}>
+							{item.id}. {item.name}
+						</li>
+					))}
 				</ul>
 			</div>
 			<div className='museum-list__museums'>
 				<span>Museums</span>
 				<ul>
-					{Array.from({ length: 4 }).map((_, index) => (
-						<li key={index} className='museum-item'>
+					{museums.map((museum, index) => (
+						<li
+							key={index}
+							className='museum-item'
+							ref={el => {
+								museumRefs.current[index] = el
+							}}
+						>
 							<div>
 								<div className='museum-item__info'>
 									<div>
-										<span>1</span>
+										<span>{museum.id}</span>
 										<div>
-											<small>The Uffizi Gallery, Florence, Italy</small>
-											<h2>Museum Name</h2>
+											<small>{museum.short_description.slice(0, 40)}...</small>
+											<h2>{museum.name}</h2>
 										</div>
 									</div>
-									<p>
-										The Louvre Museum is a world-renowned museum located in the
-										heart of Paris, France. It is home to some of the world's
-										most famous works of art, including the Mona Lisa by
-										Leonardo da Vinci and the Venus de Milo sculpture. The
-										museum's collection includes over 380,000 objects, with
-										works of art from all over the world and from various time
-										periods, from antiquity to the present day. The museum is
-										housed in a former royal palace and covers an area of over
-										60,000 square meters. Its stunning architecture and
-										impressive collection make it one of the most popular
-										tourist attractions in Paris.
-									</p>
+									<p>{museum.full_description}</p>
 
 									<div className='btns'>
-										<button>Visit the museum </button>
-										<button>
-											<svg
-												width='26'
-												height='26'
-												viewBox='0 0 26 26'
-												fill='none'
-												xmlns='http://www.w3.org/2000/svg'
-											>
-												<path
-													fillRule='evenodd'
-													clipRule='evenodd'
-													d='M13.1624 4.73214C14.3641 3.61871 15.9412 2.99886 17.5795 2.99609C19.3504 2.99609 21.0413 3.72458 22.2787 5.00711C23.51 6.29068 24.1959 8.00154 24.1922 9.78021C24.1959 11.5589 23.51 13.2697 22.2787 14.5533C21.462 15.3998 20.6463 16.2668 19.8265 17.1369C18.1602 18.9057 16.4765 20.6941 14.7271 22.3778L14.724 22.3819C14.2896 22.7933 13.7105 23.0166 13.1124 23.0033C12.5144 22.99 11.9457 22.7413 11.53 22.3111L4.04508 14.5533C1.49539 11.9092 1.49539 7.6512 4.04508 5.00814C5.22358 3.77322 6.84089 3.05191 8.54713 3.00026C10.2534 2.94861 11.9113 3.57076 13.1624 4.73214Z'
-													fill='white'
-												/>
-											</svg>
-										</button>
+										<Link href={museum.website_link}>
+											<button>Visit the museum </button>
+										</Link>
 									</div>
 								</div>
-								<div className='museum-item__img'></div>
+								<div
+									className='museum-item__img'
+									style={{ backgroundImage: `url('${museum.preview_image}')` }}
+								></div>
 							</div>
 							<div className='museum-item__swiper'>
 								<Swiper
@@ -75,14 +180,12 @@ const MuseumList = () => {
 									grabCursor={true}
 									autoplay={{ delay: 3000, disableOnInteraction: false }}
 								>
-									<SwiperSlide></SwiperSlide>
-									<SwiperSlide></SwiperSlide>
-									<SwiperSlide></SwiperSlide>
-									<SwiperSlide></SwiperSlide>
-									<SwiperSlide></SwiperSlide>
-									<SwiperSlide></SwiperSlide>
-									<SwiperSlide></SwiperSlide>
-									<SwiperSlide></SwiperSlide>
+									{museum.artworks.map((item, index) => (
+										<SwiperSlide
+											key={index}
+											style={{ backgroundImage: `url('${item.image}')` }}
+										></SwiperSlide>
+									))}
 								</Swiper>
 							</div>
 						</li>
@@ -91,6 +194,6 @@ const MuseumList = () => {
 			</div>
 		</div>
 	)
-}
+})
 
 export default MuseumList

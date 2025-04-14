@@ -1,8 +1,9 @@
 'use client'
 
+import React from 'react'
 import './MainHero.scss'
 
-export default function MainHero() {
+const MainHero = React.memo(() => {
 	return (
 		<div className='MainHero'>
 			<div className='hero-title'>
@@ -39,4 +40,6 @@ export default function MainHero() {
 			</div>
 		</div>
 	)
-}
+})
+
+export default MainHero

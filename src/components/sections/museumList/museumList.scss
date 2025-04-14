@@ -2,7 +2,7 @@
 	display: grid;
 	grid-template-columns: 25% 75%;
 	gap: 30px;
-
+	margin-bottom: 200px;
 	@media (max-width: 1023px) {
 		grid-template-columns: 100%;
 	}
@@ -10,6 +10,7 @@
 	@media (max-width: 560px) {
 		margin: 0 auto;
 		width: 95%;
+		margin-bottom: 200px;
 	}
 
 	&__best {
@@ -70,13 +71,20 @@
 				font-size: 16px;
 				line-height: 23px;
 				color: #ffffff;
+				cursor: pointer;
+				transition: all 0.3s ease-in-out;
+				&:hover {
+					background: rgba(164, 211, 255, 0.349);
+				}
 			}
 		}
 	}
 
 	.swiper-slide {
 		height: 230px;
-		background-color: red;
+		background-size: cover;
+		background-repeat: no-repeat;
+		background-position: center top;
 		border-radius: 10px;
 		width: 320px;
 

@@ -1,6 +1,6 @@
 'use client'
 
-import { FC } from 'react'
+import React, { FC } from 'react'
 import { Autoplay, Navigation } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import './SeeAlsoSwiper.scss'
@@ -17,7 +17,7 @@ interface SeeAlsoSwiperProps {
 	artworks?: Artwork[]
 }
 
-const SeeAlsoSwiper: FC<SeeAlsoSwiperProps> = ({ artworks }) => {
+const SeeAlsoSwiper: FC<SeeAlsoSwiperProps> = React.memo(({ artworks }) => {
 	return (
 		<div className='SeeAlsoSwiper'>
 			<div className='SeeAlsoSwiper__title'>
@@ -78,6 +78,6 @@ const SeeAlsoSwiper: FC<SeeAlsoSwiperProps> = ({ artworks }) => {
 			</Swiper>
 		</div>
 	)
-}
+})
 
 export default SeeAlsoSwiper

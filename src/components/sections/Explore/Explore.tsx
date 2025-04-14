@@ -2,7 +2,7 @@
 
 import axios from 'axios'
 import { motion } from 'framer-motion'
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Autoplay } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import './Explore.scss'
@@ -19,7 +19,7 @@ type artworks = {
 	year: number
 }
 
-export default function Explore() {
+const Explore = React.memo(() => {
 	const [data, setData] = useState<artworks[]>([])
 
 	useEffect(() => {
@@ -160,4 +160,6 @@ export default function Explore() {
 			</div>
 		</motion.div>
 	)
-}
+})
+
+export default Explore

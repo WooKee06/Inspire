@@ -2,11 +2,11 @@
 
 import { motion, useScroll } from 'framer-motion'
 import Link from 'next/link'
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Logo from '../ui/Logo/Logo'
 import './Header.scss'
 
-export default function Header() {
+const Header = React.memo(() => {
 	const { scrollY } = useScroll()
 	const [scrolled, setScrolled] = useState(false)
 
@@ -34,9 +34,6 @@ export default function Header() {
 						</li>
 						<li className='nav-item'>
 							<Link href='/museums'>Museums</Link>
-						</li>
-						<li className='nav-item'>
-							<Link href='/About'>About Us</Link>
 						</li>
 					</ul>
 				</nav>
@@ -79,4 +76,5 @@ export default function Header() {
 			</div>
 		</motion.header>
 	)
-}
+})
+export default Header

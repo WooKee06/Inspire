@@ -1,9 +1,10 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import React from 'react'
 import './HeroPost.scss'
 
-export default function HeroPost() {
+const HeroPost = React.memo(() => {
 	return (
 		<motion.div
 			className='hero-post wrapper'
@@ -64,4 +65,6 @@ export default function HeroPost() {
 			</motion.div>
 		</motion.div>
 	)
-}
+})
+
+export default HeroPost

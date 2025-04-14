@@ -6,12 +6,20 @@
 	align-items: center;
 	justify-content: center;
 
+	@media (max-width: 768px) {
+		height: 40vh;
+	}
+
 	.FavoriteHero-wrapper {
 		display: flex;
 		flex-direction: column;
 		gap: 15px;
 		align-items: center;
 		width: 50%;
+
+		@media (max-width: 768px) {
+			width: 90%;
+		}
 
 		> span {
 			font-family: 'Cormorant SC';
@@ -21,6 +29,10 @@
 			line-height: 23px;
 			text-align: center;
 			color: #cbcbcb;
+
+			@media (max-width: 768px) {
+				font-size: 14px;
+			}
 		}
 		h1 {
 			font-family: 'Cinzel Decorative';
@@ -36,6 +48,11 @@
 			gap: 10px;
 			flex-wrap: wrap;
 			justify-content: center;
+
+			@media (max-width: 768px) {
+				font-size: 30px;
+				line-height: 35px;
+			}
 		}
 	}
 }

@@ -59,7 +59,7 @@ const ArtworkIdHero: FC = observer(() => {
 				<div className='PaintingIdHero-wrapper wrapper'>
 					<BackButton />
 
-					<div>
+					<div style={{ alignItems: 'stretch' }}>
 						<div
 							className='PaintingIdHero__info'
 							style={{ alignItems: 'stretch' }}
@@ -83,7 +83,7 @@ const ArtworkIdHero: FC = observer(() => {
 								</p>
 							</div>
 						</div>
-						<Skeleton height={550} />
+						<Skeleton height={470} />
 					</div>
 				</div>
 			</div>

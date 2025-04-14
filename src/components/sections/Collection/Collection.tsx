@@ -1,9 +1,10 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import React from 'react'
 import './Collection.scss'
 
-export default function Collection() {
+const Collection = React.memo(() => {
 	return (
 		<motion.div
 			className='collection wrapper'
@@ -52,4 +53,6 @@ export default function Collection() {
 			/>
 		</motion.div>
 	)
-}
+})
+
+export default Collection

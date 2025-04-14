@@ -1,6 +1,7 @@
+import React from 'react'
 import './MuseumsHero.scss'
 
-const MuseumsHero = () => {
+const MuseumsHero = React.memo(() => {
 	return (
 		<div className='MuseumsHero'>
 			<div className='MuseumsHero-wrapper'>
@@ -14,6 +15,6 @@ const MuseumsHero = () => {
 			</div>
 		</div>
 	)
-}
+})
 
 export default MuseumsHero
