@@ -21,7 +21,7 @@ interface PaintingIdHeroProp {
 	movementInfo: string
 }
 
-const PaintingIdHero: FC<PaintingIdHeroProp> = observer(({ movementInfo }) => {
+const PaintingIdHeroComponent: FC<PaintingIdHeroProp> = ({ movementInfo }) => {
 	const [isLoading, setIsLoading] = useState(true)
 	const params = useParams()
 	const [currentArtwork, setCurrentArtwork] = useState<artworksType | null>(
@@ -43,6 +43,7 @@ const PaintingIdHero: FC<PaintingIdHeroProp> = observer(({ movementInfo }) => {
 				)
 				setCurrentArtwork(response.data)
 			} catch (err) {
+				console.log(err, 'error fetchArtwork')
 			} finally {
 				setIsLoading(false)
 			}
@@ -145,6 +146,8 @@ const PaintingIdHero: FC<PaintingIdHeroProp> = observer(({ movementInfo }) => {
 			</div>
 		</div>
 	)
-})
+}
 
+const PaintingIdHero = observer(PaintingIdHeroComponent)
+PaintingIdHero.displayName = 'PaintingIdHero'
 export default PaintingIdHero
