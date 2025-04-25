@@ -52,7 +52,7 @@ const MuseumList = React.memo(() => {
 		})
 	}
 
-	if (loading) {
+	if (loading || !museums) {
 		return (
 			<div className=' wrapper museum-list'>
 				<div className='museum-list__best'>
@@ -67,7 +67,7 @@ const MuseumList = React.memo(() => {
 					</span>
 					<ul>
 						{Array.from({ length: 10 }).map((item, index) => (
-							<Skeleton height={60} />
+							<Skeleton height={60} key={index} />
 						))}
 					</ul>
 				</div>

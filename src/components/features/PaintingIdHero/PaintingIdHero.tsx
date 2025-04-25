@@ -23,7 +23,6 @@ interface PaintingIdHeroProp {
 
 const PaintingIdHero: FC<PaintingIdHeroProp> = observer(({ movementInfo }) => {
 	const [isLoading, setIsLoading] = useState(true)
-	const [error, setError] = useState<string | null>(null)
 	const params = useParams()
 	const [currentArtwork, setCurrentArtwork] = useState<artworksType | null>(
 		null
@@ -44,7 +43,6 @@ const PaintingIdHero: FC<PaintingIdHeroProp> = observer(({ movementInfo }) => {
 				)
 				setCurrentArtwork(response.data)
 			} catch (err) {
-				setError(err instanceof Error ? err.message : 'Unknown error')
 			} finally {
 				setIsLoading(false)
 			}
@@ -55,7 +53,7 @@ const PaintingIdHero: FC<PaintingIdHeroProp> = observer(({ movementInfo }) => {
 		}
 	}, [params.movementId, params.paintingId])
 
-	if (isLoading) {
+	if (isLoading || !currentArtwork) {
 		return (
 			<div className='PaintingIdHero'>
 				<div className='PaintingIdHero-wrapper wrapper'>
@@ -90,10 +88,6 @@ const PaintingIdHero: FC<PaintingIdHeroProp> = observer(({ movementInfo }) => {
 				</div>
 			</div>
 		)
-	}
-
-	if (!currentArtwork) {
-		return <div>Картина не найдена</div>
 	}
 
 	return (

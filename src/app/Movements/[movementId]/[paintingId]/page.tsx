@@ -40,15 +40,11 @@ const PaintingId = () => {
 	const [movementInfo, setMovementInfo] = useState<movementInfoType | null>(
 		null
 	)
-
-	const [isLoading, setIsLoading] = useState(true)
-	const [error, setError] = useState<string | null>(null)
 	const params = useParams()
 
 	useEffect(() => {
 		const fetchMovement = async () => {
 			try {
-				setIsLoading(true)
 				const response = await axios.get<movementInfoType>(
 					`/api/movements?id=${params.movementId}`
 				)
@@ -56,9 +52,6 @@ const PaintingId = () => {
 				setMovementInfo(response.data)
 			} catch (err) {
 				console.error('Error fetching movement:', err)
-				setError('Failed to load movement data')
-			} finally {
-				setIsLoading(false)
 			}
 		}
 

@@ -8,7 +8,9 @@ import { Provider } from 'mobx-react'
 import { observer } from 'mobx-react-lite'
 import { SkeletonTheme } from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
+import 'swiper/css'
 import '../styles/global.scss'
+
 const RootLayout = observer(({ children }: { children: React.ReactNode }) => {
 	const { bodyScrollHidden } = preloaderStore
 

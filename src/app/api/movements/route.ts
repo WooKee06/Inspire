@@ -2,6 +2,25 @@ import sql from 'mssql'
 import { NextResponse } from 'next/server'
 import { config } from '../../db/config'
 
+interface Artwork {
+	id: number
+	title: string
+	artist: string
+	year: number
+	image: string
+	isLiked?: boolean
+}
+
+type MovementsType = {
+	description: string
+	history: string
+	id: number
+	image: string
+	name: string
+	artworks: Artwork[]
+	year: number
+}
+
 export async function GET(request: Request) {
 	try {
 		const { searchParams } = new URL(request.url)
@@ -46,7 +65,7 @@ async function getAllMovements(): Promise<MovementWithArtworks[]> {
 		])
 
 		const artworksByMovement: Record<number, ArtworkPreview[]> = {}
-		artworksResult.recordset.forEach((artwork: any) => {
+		artworksResult.recordset.forEach((artwork: Artwork) => {
 			if (artwork.rowNum <= 10) {
 				if (!artworksByMovement[artwork.movement_id]) {
 					artworksByMovement[artwork.movement_id] = []
@@ -58,7 +77,7 @@ async function getAllMovements(): Promise<MovementWithArtworks[]> {
 			}
 		})
 
-		return movementsResult.recordset.map((movement: any) => ({
+		return movementsResult.recordset.map((movement: MovementsType) => ({
 			id: movement.id,
 			name: movement.name,
 			year: movement.year,

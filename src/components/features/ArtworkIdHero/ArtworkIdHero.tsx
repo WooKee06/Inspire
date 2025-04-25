@@ -19,7 +19,6 @@ type artworksType = {
 
 const ArtworkIdHero: FC = observer(() => {
 	const [isLoading, setIsLoading] = useState(true)
-	const [error, setError] = useState<string | null>(null)
 	const params = useParams()
 	const [currentArtwork, setCurrentArtwork] = useState<artworksType | null>(
 		null
@@ -30,13 +29,11 @@ const ArtworkIdHero: FC = observer(() => {
 		const fetchArtwork = async () => {
 			try {
 				setIsLoading(true)
-				setError(null)
 				const response = await axios.get<artworksType>(
 					`/api/artworks/${params.id}`
 				)
 				setCurrentArtwork(response.data)
 			} catch (err) {
-				setError(err instanceof Error ? err.message : 'Unknown error')
 				console.error('Failed to fetch artwork:', err)
 			} finally {
 				setIsLoading(false)
@@ -53,7 +50,7 @@ const ArtworkIdHero: FC = observer(() => {
 		addFavoriteAtrs(currentArtwork)
 	}
 
-	if (isLoading) {
+	if (isLoading || !currentArtwork) {
 		return (
 			<div className='PaintingIdHero'>
 				<div className='PaintingIdHero-wrapper wrapper'>
@@ -90,7 +87,6 @@ const ArtworkIdHero: FC = observer(() => {
 		)
 	}
 
-	// Объявляем переменную после всех проверок
 	const isArtFavorite = isFavorite(currentArtwork.id)
 
 	return (
