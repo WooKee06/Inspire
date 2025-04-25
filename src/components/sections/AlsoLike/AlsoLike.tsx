@@ -1,11 +1,10 @@
 'use client'
 
-import React from 'react'
 import { Autoplay } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import './AlsoLike.scss'
 
-const AlsoLike = React.memo(() => {
+function AlsoLike() {
 	return (
 		<div className='also-like'>
 			<div className='also-like__info'>
@@ -64,6 +63,6 @@ const AlsoLike = React.memo(() => {
 			</div>
 		</div>
 	)
-})
+}
 
 export default AlsoLike

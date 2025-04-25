@@ -1,6 +1,5 @@
-import React from 'react'
 import './MovementHero.scss'
-const MovementHero = React.memo(() => {
+function MovementHero() {
 	return (
 		<>
 			<div className='MovementHero'>
@@ -31,6 +30,6 @@ const MovementHero = React.memo(() => {
 			</div>
 		</>
 	)
-})
+}
 
 export default MovementHero

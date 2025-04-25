@@ -76,7 +76,7 @@ const MovementIDHero = observer(() => {
 		loadFromLocalStorage()
 	}, [params.movementId])
 
-	if (isLoading) {
+	if (isLoading || !movement) {
 		return (
 			<>
 				<div className='MovementIDHero'>

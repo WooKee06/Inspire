@@ -1,9 +1,8 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import React from 'react'
 import './MobileNav.scss'
 
-const MobileNav = React.memo(() => {
+function MobileNav() {
 	const pathname = usePathname()
 	const isActive = (href: string) => {
 		return pathname === href
@@ -124,6 +123,6 @@ const MobileNav = React.memo(() => {
 			</div>
 		</div>
 	)
-})
+}
 
 export default MobileNav

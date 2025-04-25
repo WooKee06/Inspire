@@ -2,7 +2,7 @@
 
 import axios from 'axios'
 import Link from 'next/link'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import Skeleton from 'react-loading-skeleton'
 import { Navigation } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
@@ -24,7 +24,7 @@ type GetMovementsType = {
 	year: number
 }
 
-const MovementList = React.memo(() => {
+function MovementList() {
 	const [movementsArr, setMovementsArr] = useState<GetMovementsType[]>([])
 	const [loading, setLoading] = useState(false)
 
@@ -159,6 +159,6 @@ const MovementList = React.memo(() => {
 			</div>
 		</div>
 	)
-})
+}
 
 export default MovementList

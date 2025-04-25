@@ -2,7 +2,7 @@ import { useCallback } from 'react'
 import './BackButton.scss'
 
 const BackButton = () => {
-	const handleClick = useCallback((e: React.MouseEvent<HTMLButtonElement>) => {
+	const handleClick = useCallback(() => {
 		history.back()
 	}, [])
 	return (

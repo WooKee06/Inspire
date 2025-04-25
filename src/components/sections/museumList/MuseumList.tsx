@@ -2,7 +2,7 @@
 
 import axios from 'axios'
 import Link from 'next/link'
-import React, { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Skeleton from 'react-loading-skeleton'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import './museumList.scss'
@@ -24,7 +24,7 @@ interface museumsType {
 	artworks: artworksType[]
 }
 
-const MuseumList = React.memo(() => {
+function MuseumList() {
 	const [museums, setMuseums] = useState<museumsType[]>([])
 	const [loading, setLoading] = useState(false)
 	const museumRefs = useRef<(HTMLLIElement | null)[]>([])
@@ -66,7 +66,7 @@ const MuseumList = React.memo(() => {
 						<Skeleton height={40} />
 					</span>
 					<ul>
-						{Array.from({ length: 10 }).map((item, index) => (
+						{Array.from({ length: 10 }).map((_, index) => (
 							<Skeleton height={60} key={index} />
 						))}
 					</ul>
@@ -74,7 +74,7 @@ const MuseumList = React.memo(() => {
 				<div className='museum-list__museums'>
 					<Skeleton height={60} width={320} />
 					<ul>
-						{Array.from({ length: 10 }).map((museum, index) => (
+						{Array.from({ length: 10 }).map((_, index) => (
 							<li key={index} className='museum-item'>
 								<div>
 									<div className='museum-item__info'>
@@ -113,8 +113,8 @@ const MuseumList = React.memo(() => {
 										grabCursor={true}
 										autoplay={{ delay: 3000, disableOnInteraction: false }}
 									>
-										{Array.from({ length: 10 }).map((item, index) => (
-											<SwiperSlide>
+										{Array.from({ length: 10 }).map((_, index) => (
+											<SwiperSlide key={index}>
 												<Skeleton height={220} />
 											</SwiperSlide>
 										))}
@@ -194,6 +194,6 @@ const MuseumList = React.memo(() => {
 			</div>
 		</div>
 	)
-})
+}
 
 export default MuseumList

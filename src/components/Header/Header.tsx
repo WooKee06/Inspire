@@ -2,11 +2,11 @@
 
 import { motion, useScroll } from 'framer-motion'
 import Link from 'next/link'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import Logo from '../ui/Logo/Logo'
 import './Header.scss'
 
-const Header = React.memo(() => {
+function Header() {
 	const { scrollY } = useScroll()
 	const [scrolled, setScrolled] = useState(false)
 
@@ -76,5 +76,5 @@ const Header = React.memo(() => {
 			</div>
 		</motion.header>
 	)
-})
+}
 export default Header

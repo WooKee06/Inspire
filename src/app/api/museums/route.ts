@@ -2,12 +2,42 @@ import sql from 'mssql'
 import { NextResponse } from 'next/server'
 import { config } from '../../db/config'
 
+interface MuseumArtworkRow {
+	museum_id: number
+	museum_name: string
+	preview_image: string
+	short_description: string
+	full_description: string
+	website_link: string
+	artwork_title: string
+	artwork_image: string
+	artwork_artist: string
+	artwork_year: number
+}
+
+interface artworksType {
+	title: string
+	image: string
+	artist: string
+	year: number
+}
+
+interface museumsType {
+	id: number
+	name: string
+	preview_image: string
+	full_description: string
+	short_description: string
+	website_link: string
+	artworks: artworksType[]
+}
+
 export async function GET() {
 	try {
 		const pool = await sql.connect(config)
 
 		// Получаем все данные: музеи и их картины
-		const result = await pool.query(`
+		const result = await pool.query<MuseumArtworkRow>(`
       SELECT 
         ma.id AS museum_id,
         ma.name AS museum_name,
@@ -24,11 +54,9 @@ export async function GET() {
       ORDER BY ma.id
     `)
 
-		// Группируем данные по музеям
-		const museums: Record<number, any> = {}
+		const museums: Record<number, museumsType> = {}
 
-		result.recordset.forEach((row: any) => {
-			// Если музей ещё не добавлен, создаём объект
+		result.recordset.forEach((row: MuseumArtworkRow) => {
 			if (!museums[row.museum_id]) {
 				museums[row.museum_id] = {
 					id: row.museum_id,
