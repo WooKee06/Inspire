@@ -11,6 +11,13 @@ interface Artwork {
 	isLiked?: boolean
 }
 
+interface RawArtworkRow {
+	movement_id: number
+	artworkImage: string
+	artworkTitle: string
+	rowNum: number
+}
+
 type MovementsType = {
 	description: string
 	history: string
@@ -65,7 +72,7 @@ async function getAllMovements(): Promise<MovementWithArtworks[]> {
 		])
 
 		const artworksByMovement: Record<number, ArtworkPreview[]> = {}
-		artworksResult.recordset.forEach((artwork: Artwork) => {
+		artworksResult.recordset.forEach((artwork: RawArtworkRow) => {
 			if (artwork.rowNum <= 10) {
 				if (!artworksByMovement[artwork.movement_id]) {
 					artworksByMovement[artwork.movement_id] = []
@@ -81,7 +88,7 @@ async function getAllMovements(): Promise<MovementWithArtworks[]> {
 			id: movement.id,
 			name: movement.name,
 			year: movement.year,
-			image: movement.movementImage,
+			image: movement.image,
 			description: movement.description,
 			artworks: artworksByMovement[movement.id] || [],
 		}))

@@ -3,8 +3,9 @@ import { NextRequest, NextResponse } from 'next/server'
 import { config } from '../../../../db/config'
 
 export async function GET(request: NextRequest) {
+	let pool: sql.ConnectionPool | null = null
+
 	try {
-		// Разбираем путь вручную, чтобы получить оба параметра
 		const pathParts = request.nextUrl.pathname.split('/')
 		const movementId = parseInt(pathParts.at(-2) || '')
 		const pictureId = parseInt(pathParts.at(-1) || '')
@@ -16,7 +17,7 @@ export async function GET(request: NextRequest) {
 			)
 		}
 
-		const pool = await sql.connect(config)
+		pool = await sql.connect(config)
 
 		const result = await pool
 			.request()
@@ -41,6 +42,8 @@ export async function GET(request: NextRequest) {
 			{ status: 500 }
 		)
 	} finally {
-		await sql.close()
+		if (pool) {
+			await pool.close()
+		}
 	}
 }
