@@ -1,14 +1,13 @@
 import sql from 'mssql'
-import { NextResponse } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
 import { config } from '../../../../db/config'
 
-export async function GET(
-	request: Request,
-	{ params }: { params: { id: string; pictureId: string } }
-) {
+export async function GET(request: NextRequest) {
 	try {
-		const movementId = parseInt(params.id)
-		const pictureId = parseInt(params.pictureId)
+		// Разбираем путь вручную, чтобы получить оба параметра
+		const pathParts = request.nextUrl.pathname.split('/')
+		const movementId = parseInt(pathParts.at(-2) || '')
+		const pictureId = parseInt(pathParts.at(-1) || '')
 
 		if (isNaN(movementId) || isNaN(pictureId)) {
 			return NextResponse.json(
