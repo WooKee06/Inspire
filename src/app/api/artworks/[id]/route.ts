@@ -1,16 +1,21 @@
 import sql from 'mssql'
-import { NextResponse } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
 import { config } from '../../../db/config'
 
-export async function GET(
-	request: Request,
-	{ params }: { params: { id: number } }
-) {
+export async function GET(request: NextRequest) {
 	try {
+		const url = new URL(request.url)
+		const idParam = url.pathname.split('/').pop()
+
+		if (!idParam || isNaN(Number(idParam))) {
+			return NextResponse.json({ message: 'Invalid ID' }, { status: 400 })
+		}
+
+		const id = parseInt(idParam, 10)
+
 		const pool = await sql.connect(config)
 
-		const result = await pool.request().input('artworkId', sql.Int, params.id)
-			.query(`
+		const result = await pool.request().input('artworkId', sql.Int, id).query(`
         SELECT 
           ma.*,
           m.name AS movement_name,
