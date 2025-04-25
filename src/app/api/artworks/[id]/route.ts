@@ -4,7 +4,7 @@ import { config } from '../../../db/config'
 
 export async function GET(
 	request: Request,
-	{ params }: { params: { id: string } }
+	{ params }: { params: { id: number } }
 ) {
 	try {
 		const pool = await sql.connect(config)
