@@ -1,32 +1,5 @@
-import sql from 'mssql'
+import { supabase } from '@/app/lib/supabase'
 import { NextResponse } from 'next/server'
-import { config } from '../../db/config'
-
-interface Artwork {
-	id: number
-	title: string
-	artist: string
-	year: number
-	image: string
-	isLiked?: boolean
-}
-
-interface RawArtworkRow {
-	movement_id: number
-	artworkImage: string
-	artworkTitle: string
-	rowNum: number
-}
-
-type MovementsType = {
-	description: string
-	history: string
-	id: number
-	image: string
-	name: string
-	artworks: Artwork[]
-	year: number
-}
 
 export async function GET(request: Request) {
 	try {
@@ -42,119 +15,120 @@ export async function GET(request: Request) {
 
 		return NextResponse.json(result)
 	} catch (error) {
-		console.error('Ошибка при запросе к базе данных:', error)
+		console.error('❌ Error in GET function:', error)
 		return NextResponse.json(
-			{ message: 'Ошибка при запросе к базе данных' },
+			{ message: 'Ошибка при запросе к базе данных', error },
 			{ status: 500 }
 		)
 	}
 }
 
-async function getAllMovements(): Promise<MovementWithArtworks[]> {
-	let pool: sql.ConnectionPool | null = null
+// Функция для получения всех направлений с произведениями искусства
+async function getAllMovements() {
 	try {
-		pool = await sql.connect(config)
+		const { data: movements, error: movementsError } = await supabase.from(
+			'movements'
+		).select(`
+      id,
+      name,
+      year,
+      description,
+      history,
+      image
+    `)
 
-		const movementsQuery = `SELECT * FROM [dbo].[Movements] m`
-
-		const artworksQuery = `
-					SELECT 
-							ma.movement_id,
-							ma.image AS artworkImage,
-							ma.title AS artworkTitle,
-							ROW_NUMBER() OVER (PARTITION BY ma.movement_id ORDER BY ma.id) AS rowNum
-					FROM [dbo].[MovementArtworks] ma
-			`
-
-		const [movementsResult, artworksResult] = await Promise.all([
-			pool.query(movementsQuery),
-			pool.query(artworksQuery),
-		])
-
-		const artworksByMovement: Record<number, ArtworkPreview[]> = {}
-		artworksResult.recordset.forEach((artwork: RawArtworkRow) => {
-			if (artwork.rowNum <= 10) {
-				if (!artworksByMovement[artwork.movement_id]) {
-					artworksByMovement[artwork.movement_id] = []
-				}
-				artworksByMovement[artwork.movement_id].push({
-					image: artwork.artworkImage,
-					title: artwork.artworkTitle,
-				})
-			}
-		})
-
-		return movementsResult.recordset.map((movement: MovementsType) => ({
-			id: movement.id,
-			name: movement.name,
-			year: movement.year,
-			image: movement.image,
-			description: movement.description,
-			artworks: artworksByMovement[movement.id] || [],
-		}))
-	} catch (error) {
-		console.error(error)
-		throw new Error('Ошибка при получении списка направлений')
-	} finally {
-		if (pool) {
-			await pool.close()
+		if (movementsError) {
+			console.error('❌ Supabase fetch error (movements):', movementsError)
+			throw new Error(movementsError.message) // Логируем ошибку
 		}
+
+		// Для каждого направления получаем картины
+		const movementsWithArtworks = await Promise.all(
+			movements.map(async movement => {
+				const { data: artworks, error: artworksError } = await supabase
+					.from('movementartworks')
+					.select(
+						`
+            id,
+            movement_id,
+            title,
+            artist,
+            year,
+            image,
+            description
+          `
+					)
+					.eq('movement_id', movement.id)
+
+				if (artworksError) {
+					console.error('❌ Supabase fetch error (artworks):', artworksError)
+					throw new Error(artworksError.message) // Логируем ошибку
+				}
+
+				return {
+					...movement, // Сохраняем поля направления
+					artworks: artworks ?? [], // Добавляем произведения искусства
+				}
+			})
+		)
+
+		return movementsWithArtworks
+	} catch (error) {
+		console.error('❌ Error in getAllMovements:', error)
+		throw new Error('Ошибка при получении списка направлений с картинами')
 	}
 }
 
-type ArtworkPreview = {
-	image: string
-	title: string
-}
-
-type MovementWithArtworks = {
-	id: number
-	name: string
-	year: number
-	image: string
-	artworks: ArtworkPreview[]
-}
-
+// Функция для получения одного направления по ID с произведениями искусства
 async function getMovementById(movementId: number) {
-	let pool
 	try {
-		pool = await sql.connect(config)
+		const { data: movement, error: movementError } = await supabase
+			.from('movements') // Получаем данные из таблицы movements
+			.select(
+				`
+        id,
+        name,
+        year,
+        description,
+        history,
+        image
+      `
+			)
+			.eq('id', movementId)
+			.single() // Получаем только одно направление
 
-		const [movementResult, representativesResult, artworksResult] =
-			await Promise.all([
-				pool
-					.request()
-					.input('movementId', sql.Int, movementId)
-					.query('SELECT * FROM [dbo].[Movements] WHERE id = @movementId'),
-				pool
-					.request()
-					.input('movementId', sql.Int, movementId)
-					.query(
-						'SELECT * FROM [dbo].[MovementRepresentatives] WHERE movement_id = @movementId'
-					),
-				pool
-					.request()
-					.input('movementId', sql.Int, movementId)
-					.query(
-						'SELECT * FROM [dbo].[MovementArtworks] WHERE movement_id = @movementId'
-					),
-			])
+		if (movementError) {
+			console.error('❌ Supabase fetch error (movement):', movementError)
+			throw new Error(movementError.message) // Логируем ошибку
+		}
 
-		if (movementResult.recordset.length === 0) {
-			throw new Error('Направление не найдено')
+		// Получаем произведения искусства для этого направления
+		const { data: artworks, error: artworksError } = await supabase
+			.from('movementartworks')
+			.select(
+				`
+        id,
+        movement_id,
+        title,
+        artist,
+        year,
+        image,
+        description
+      `
+			)
+			.eq('movement_id', movementId)
+
+		if (artworksError) {
+			console.error('❌ Supabase fetch error (artworks):', artworksError)
+			throw new Error(artworksError.message) // Логируем ошибку
 		}
 
 		return {
-			...movementResult.recordset[0],
-			representatives: representativesResult.recordset,
-			artworks: artworksResult.recordset,
+			...movement, // Сохраняем данные о направлении
+			artworks: artworks ?? [], // Добавляем произведения искусства
 		}
 	} catch (error) {
-		console.error(error)
-		throw new Error('Ошибка при получении данных направления')
-	} finally {
-		if (pool) {
-			await pool.close()
-		}
+		console.error('❌ Error in getMovementById:', error)
+		throw new Error('Ошибка при получении данных направления с картинами')
 	}
 }

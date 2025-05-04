@@ -1,30 +1,23 @@
-import sql from 'mssql'
+import { supabase } from '@/app/lib/supabase'
 import { NextResponse } from 'next/server'
-import { config } from '../../db/config'
 
 export async function GET() {
 	try {
-		const pool = await sql.connect(config)
+		const { data, error } = await supabase.from('movementartworks').select(`
+        id,
+        movement_id,
+        title,
+        artist,
+        year,
+        image,
+        description
+      `)
 
-		const result = await pool.query(`
-      SELECT 
-        ma.id,
-        ma.title,
-        ma.artist,
-        ma.year,
-        ma.image,
-        ma.description,
-        ma.movement_id,
-        m.name AS movement_name,
-        m.image AS movement_image
-      FROM [dbo].[MovementArtworks] ma
-      JOIN [dbo].[Movements] m ON ma.movement_id = m.id
-      ORDER BY ma.id
-    `)
+		if (error) throw error
 
-		return NextResponse.json(result.recordset)
+		return NextResponse.json(data)
 	} catch (error) {
-		console.error('Database error:', error)
+		console.error('Supabase error:', error)
 		return NextResponse.json(
 			{ message: 'Error fetching artworks' },
 			{ status: 500 }

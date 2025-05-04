@@ -34,6 +34,7 @@ function MuseumList() {
 			try {
 				setLoading(true)
 				const response = await axios.get('/api/museums')
+				console.log(response.data)
 				setMuseums(response.data)
 			} catch (error) {
 				console.log(error, 'error FetchDataMuseums')
@@ -163,7 +164,7 @@ function MuseumList() {
 									<p>{museum.full_description}</p>
 
 									<div className='btns'>
-										<Link href={museum.website_link}>
+										<Link href={museum?.website_link}>
 											<button>Visit the museum </button>
 										</Link>
 									</div>

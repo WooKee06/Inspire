@@ -1,11 +1,9 @@
-import sql from 'mssql'
+import { supabase } from '@/app/lib/supabase'
 import { NextRequest, NextResponse } from 'next/server'
-import { config } from '../../../../db/config'
 
 export async function GET(request: NextRequest) {
-	let pool: sql.ConnectionPool | null = null
-
 	try {
+		// Извлекаем ID движения и картины из пути запроса
 		const pathParts = request.nextUrl.pathname.split('/')
 		const movementId = parseInt(pathParts.at(-2) || '')
 		const pictureId = parseInt(pathParts.at(-1) || '')
@@ -17,33 +15,38 @@ export async function GET(request: NextRequest) {
 			)
 		}
 
-		pool = await sql.connect(config)
+		// Запрос в Supabase для получения данных картины по movementId и pictureId
+		const { data, error } = await supabase
+			.from('movementartworks')
+			.select('*')
+			.eq('movement_id', movementId)
+			.eq('id', pictureId)
+			.single()
 
-		const result = await pool
-			.request()
-			.input('movementId', sql.Int, movementId)
-			.input('pictureId', sql.Int, pictureId).query(`
-        SELECT * FROM [dbo].[MovementArtworks] 
-        WHERE movement_id = @movementId AND id = @pictureId
-      `)
+		// Обработка ошибок от Supabase
+		if (error) {
+			console.error('Ошибка Supabase:', error)
+			return NextResponse.json(
+				{ message: 'Ошибка при запросе к базе данных' },
+				{ status: 500 }
+			)
+		}
 
-		if (result.recordset.length === 0) {
+		// Если данные не найдены, возвращаем 404
+		if (!data) {
 			return NextResponse.json(
 				{ message: 'Картина не найдена' },
 				{ status: 404 }
 			)
 		}
 
-		return NextResponse.json(result.recordset[0])
+		// Возвращаем данные картины
+		return NextResponse.json(data)
 	} catch (error) {
-		console.error('Ошибка при запросе к базе данных:', error)
+		console.error('Неизвестная ошибка:', error)
 		return NextResponse.json(
-			{ message: 'Ошибка при запросе к базе данных' },
+			{ message: 'Ошибка при обработке запроса' },
 			{ status: 500 }
 		)
-	} finally {
-		if (pool) {
-			await pool.close()
-		}
 	}
 }

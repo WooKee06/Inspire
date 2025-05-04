@@ -59,8 +59,9 @@ const MovementIDHero = observer(() => {
 			try {
 				setIsLoading(true)
 				const response = await axios.get<movementInfoType>(
-					`/api/movements?id=${params.movementId}`
+					`/api/movements/${params.movementId}`
 				)
+				console.log(response.data)
 				setMovement(response.data)
 			} catch (err) {
 				console.error('Error fetching movement:', err)
@@ -209,7 +210,7 @@ const MovementIDHero = observer(() => {
 							}}
 							className='thumbs-swiper'
 						>
-							{movement?.representatives.map((item, index) => (
+							{movement?.representatives?.map((item, index) => (
 								<SwiperSlide key={index}>
 									<li>
 										<div
@@ -235,7 +236,7 @@ const MovementIDHero = observer(() => {
 								1280: { slidesPerView: 3 },
 							}}
 						>
-							{movement?.representatives.map((item, index) => (
+							{movement?.representatives?.map((item, index) => (
 								<SwiperSlide key={index}>
 									<div>
 										<div

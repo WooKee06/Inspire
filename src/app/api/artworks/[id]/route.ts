@@ -1,6 +1,5 @@
-import sql from 'mssql'
+import { supabase } from '@/app/lib/supabase'
 import { NextRequest, NextResponse } from 'next/server'
-import { config } from '../../../db/config'
 
 export async function GET(request: NextRequest) {
 	try {
@@ -13,28 +12,30 @@ export async function GET(request: NextRequest) {
 
 		const id = parseInt(idParam, 10)
 
-		const pool = await sql.connect(config)
+		const { data, error } = await supabase
+			.from('movementartworks')
+			.select('*')
+			.eq('id', id)
+			.single()
 
-		const result = await pool.request().input('artworkId', sql.Int, id).query(`
-        SELECT 
-          ma.*,
-          m.name AS movement_name,
-          m.description AS movement_description
-        FROM [dbo].[MovementArtworks] ma
-        JOIN [dbo].[Movements] m ON ma.movement_id = m.id
-        WHERE ma.id = @artworkId
-      `)
+		if (error) {
+			console.error('Supabase error:', error)
+			return NextResponse.json(
+				{ message: 'Error fetching artwork' },
+				{ status: 500 }
+			)
+		}
 
-		if (result.recordset.length === 0) {
+		if (!data) {
 			return NextResponse.json(
 				{ message: 'Artwork not found' },
 				{ status: 404 }
 			)
 		}
 
-		return NextResponse.json(result.recordset[0])
+		return NextResponse.json(data)
 	} catch (error) {
-		console.error('Database error:', error)
+		console.error('Unexpected error:', error)
 		return NextResponse.json(
 			{ message: 'Error fetching artwork' },
 			{ status: 500 }
