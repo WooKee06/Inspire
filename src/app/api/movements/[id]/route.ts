@@ -1,12 +1,12 @@
 import { supabase } from '@/app/lib/supabase'
 import { NextResponse } from 'next/server'
 
-export async function GET(
-	request: Request,
-	{ params }: { params: { id: string } }
-) {
+export async function GET(request: Request) {
 	try {
-		const movementId = parseInt(params.id)
+		const url = new URL(request.url)
+		const id = url.pathname.split('/').pop() // достаём ID из URL
+		const movementId = parseInt(id || '')
+
 		if (isNaN(movementId)) {
 			return NextResponse.json(
 				{ message: 'Invalid ID provided' },
@@ -15,7 +15,6 @@ export async function GET(
 		}
 
 		const result = await getMovementById(movementId)
-
 		return NextResponse.json(result)
 	} catch (error) {
 		console.error('❌ Error in GET function:', error)

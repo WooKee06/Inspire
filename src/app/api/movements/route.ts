@@ -23,7 +23,6 @@ export async function GET(request: Request) {
 	}
 }
 
-// Функция для получения всех направлений с произведениями искусства
 async function getAllMovements() {
 	try {
 		const { data: movements, error: movementsError } = await supabase.from(
